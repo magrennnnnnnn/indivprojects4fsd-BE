@@ -1,13 +1,13 @@
 package com.prolink.prolink.service;
 
 import com.prolink.prolink.entity.User;
-import com.prolink.prolink.repository.UserRepository;
+import com.prolink.prolink.repository.UserRepo;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthService{
-    private final UserRepository userRepository;
-    public AuthService(UserRepository userRepository) {
+    private final UserRepo userRepository;
+    public AuthService(UserRepo userRepository) {
      this.userRepository=userRepository;
     }
 
