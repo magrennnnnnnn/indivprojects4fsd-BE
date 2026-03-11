@@ -12,6 +12,9 @@ public class AuthService{
     }
 
     public User register(String email, String password) {
+        if(userRepository.findByEmail(email).isPresent()) {
+            throw new RuntimeException("Email already exists");
+        }
      User user = new User(email,password);
         return userRepository.save(user);
 
