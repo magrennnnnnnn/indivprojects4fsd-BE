@@ -14,11 +14,7 @@ public class ProfileController {
     public ProfileController(ProfileService profileService) {
         this.profileService = profileService;
     }
-
-    @GetMapping("/test")
-    public String test() {
-        return "profile works";
-    }
+    
 
     @PostMapping
     public Profile createProfile(@RequestBody CreateProfileRequest request) {
