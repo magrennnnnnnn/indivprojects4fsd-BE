@@ -14,7 +14,7 @@ public class ProfileController {
     public ProfileController(ProfileService profileService) {
         this.profileService = profileService;
     }
-    
+
 
     @PostMapping
     public Profile createProfile(@RequestBody CreateProfileRequest request) {
