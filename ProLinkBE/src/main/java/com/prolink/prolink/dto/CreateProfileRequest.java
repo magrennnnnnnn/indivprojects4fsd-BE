@@ -5,8 +5,7 @@ public class CreateProfileRequest {
     private String name;
     private String location;
     private String personalDetails;
-    public CreateProfileRequest() {
-    }
+    public CreateProfileRequest() {}
 
     public Long getUserId() {return userId;}
 

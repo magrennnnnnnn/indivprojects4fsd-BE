@@ -12,10 +12,10 @@ public class EducationalExperience {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProfileEducation;
-    private String instituionName;
+    private String institutionName;
     private LocalDate startDateSchool;
     private LocalDate endDateSchool;
-    private boolean OnGoingSchool;
+    private boolean onGoingSchool;
 
     @Column(length = 2000)
     private String educationalSkills;
@@ -28,18 +28,19 @@ public class EducationalExperience {
     private Profile profile;
 
     public EducationalExperience(){}
-    public EducationalExperience(String instituionName,LocalDate startDateSchool,LocalDate endDateSchool,String educationalSkills,Profile profile,DegreeType degree,boolean onGoingSchool){
-     this.instituionName=instituionName;
+    public EducationalExperience(String institutionName,LocalDate startDateSchool,LocalDate endDateSchool,String educationalSkills,Profile profile,DegreeType degree,boolean onGoingSchool){
+     this.institutionName=institutionName;
      this.startDateSchool=startDateSchool;
      this.endDateSchool=endDateSchool;
      this.educationalSkills=educationalSkills;
      this.profile=profile;
      this.degree=degree;
+     this.onGoingSchool=onGoingSchool;
     }
 
     public Long getIdProfileEducation(){return idProfileEducation;}
 
-    public String getInstituionName(){return instituionName;}
+    public String getInstitutionName(){return institutionName;}
 
     public LocalDate getStartDateSchool(){return startDateSchool;}
 
@@ -51,10 +52,12 @@ public class EducationalExperience {
 
     public Profile getProfile(){return profile;}
 
+    public boolean isOnGoingSchool(){return onGoingSchool;}
+
 
     public void setIdProfileEducation(Long idProfileEducation){this.idProfileEducation=idProfileEducation;}
 
-    public void setInstituionName(String instituionName){this.instituionName=instituionName;}
+    public void setInstitutionName(String institutionName){this.institutionName=institutionName;}
 
     public void setStartDateSchool(LocalDate startDateSchool){this.startDateSchool=startDateSchool;}
 
@@ -65,4 +68,6 @@ public class EducationalExperience {
     public void setDegree(DegreeType degree){this.degree=degree;}
 
     public void setProfile(Profile profile){this.profile=profile;}
+
+    public void setOnGoingSchool(boolean onGoingSchool){this.onGoingSchool=onGoingSchool;}
 }
