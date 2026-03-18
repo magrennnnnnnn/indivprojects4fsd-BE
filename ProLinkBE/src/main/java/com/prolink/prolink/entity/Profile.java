@@ -1,5 +1,6 @@
 package com.prolink.prolink.entity;
 
+import com.prolink.prolink.entity.EducationalExperience;
 import jakarta.persistence.*;
 
 @Entity
@@ -17,6 +18,7 @@ public class Profile {
     @OneToOne
     @JoinColumn(name = "userid", nullable = false, unique = true)
     private User user;
+
 
     public Profile() {
     }
