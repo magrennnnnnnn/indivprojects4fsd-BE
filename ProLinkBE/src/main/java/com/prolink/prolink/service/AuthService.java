@@ -1,0 +1,24 @@
+package com.prolink.prolink.service;
+
+import com.prolink.prolink.entity.User;
+import com.prolink.prolink.repository.UserRepo;
+import org.springframework.stereotype.Service;
+
+@Service
+public class AuthService{
+    private final UserRepo userRepository;
+    public AuthService(UserRepo userRepository) {
+     this.userRepository=userRepository;
+    }
+
+    public User register(String email, String password) {
+        if(userRepository.findByEmail(email).isPresent()) {
+            throw new RuntimeException("Email already exists");
+        }
+     User user = new User(email,password);
+        return userRepository.save(user);
+
+
+    }
+
+}
