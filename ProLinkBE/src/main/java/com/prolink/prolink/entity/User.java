@@ -17,16 +17,11 @@ public class User {
         this.password=password;
     }
 
-    public Long Id(){
+    public Long getId(){
         return id;
     }
 
-    public String Email(){return email;}
-    public String Password(){return password;}
-
-    public String getEmail() {
-        return email;
-    }
+    public String getEmail() {return email;}
 
     public String getPassword() {
         return password;
@@ -37,5 +32,7 @@ public class User {
     public void setPassword(String password){
         this.password=password;
     }
+
+    public void setId(Long id){this.id=id;}
 }
 
