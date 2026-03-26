@@ -12,6 +12,11 @@ public class UserD {
         this.password=password;
     }
 
+    public UserD(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
     public Long getId() {return id;}
 
     public String getEmail(){return email;}
@@ -23,4 +28,8 @@ public class UserD {
     public void setEmail(String email){this.email=email;}
 
     public void setPassword(String password){this.password=password;}
+
+    public boolean isValidEmail() {
+        return email != null && email.contains("@");
+    }
 }

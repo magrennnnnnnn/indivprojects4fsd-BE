@@ -4,21 +4,21 @@ import com.prolink.prolink.dto.CreateProfileRequest;
 import com.prolink.prolink.entity.Profile;
 import com.prolink.prolink.entity.User;
 import com.prolink.prolink.repository.ProfileRepo;
-import com.prolink.prolink.repository.UserRepo;
+import com.prolink.prolink.repository.UserJpaRepo;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProfileService {
 
     private final ProfileRepo profileRepository;
-    private final UserRepo userRepository;
+    private final UserJpaRepo userJpaRepository;
 
-    public ProfileService(ProfileRepo profileRepository, UserRepo userRepository) {
+    public ProfileService(ProfileRepo profileRepository, UserJpaRepo userJpaRepository) {
         this.profileRepository = profileRepository;
-        this.userRepository = userRepository;
+        this.userJpaRepository = userJpaRepository;
     }
     public Profile createProfile(CreateProfileRequest request) {
-        User user = userRepository.findById(request.getUserId())
+        User user = userJpaRepository.findById(request.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         if (profileRepository.findByUserId(request.getUserId()).isPresent()) {
