@@ -1,11 +1,11 @@
 package com.prolink.prolink.domain;
 
 public class UserD {
-    private Long id;
+    private final Long id;
     private String email;
     private String password;
 
-    public UserD(){}
+
     public UserD(Long id,String email,String password){
         this.id=id;
         this.email=email;
@@ -23,7 +23,6 @@ public class UserD {
 
     public String getPassword(){return password;}
 
-    public void setId(Long id){this.id=id;}
 
     public void setEmail(String email){this.email=email;}
 
