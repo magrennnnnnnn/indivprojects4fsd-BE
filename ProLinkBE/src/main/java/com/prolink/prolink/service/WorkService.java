@@ -3,7 +3,7 @@ package com.prolink.prolink.service;
 import com.prolink.prolink.entity.ProfileEntity;
 import com.prolink.prolink.entity.WorkExperience;
 import com.prolink.prolink.dto.AddWorkRequest;
-import com.prolink.prolink.repository.ProfileRepo;
+import com.prolink.prolink.repository.ProfileJpaRepo;
 import com.prolink.prolink.repository.WorkRepo;
 import org.springframework.stereotype.Service;
 
@@ -12,16 +12,16 @@ import org.springframework.stereotype.Service;
 public class WorkService {
 
     private final WorkRepo workRepository;
-    private final ProfileRepo profileRepository;
+    private final ProfileJpaRepo profileJpaRepository;
 
-    public WorkService(WorkRepo workRepository, ProfileRepo profileRepository) {
+    public WorkService(WorkRepo workRepository, ProfileJpaRepo profileJpaRepository) {
         this.workRepository = workRepository;
-        this.profileRepository = profileRepository;
+        this.profileJpaRepository = profileJpaRepository;
     }
 
     public WorkExperience addWorkExperience(AddWorkRequest request) {
 
-        ProfileEntity profileEntity = profileRepository.findById(request.getProfileId())
+        ProfileEntity profileEntity = profileJpaRepository.findById(request.getProfileId())
                 .orElseThrow(() -> new RuntimeException("ProfileEntity not found"));
 
         WorkExperience workExperience = new WorkExperience(

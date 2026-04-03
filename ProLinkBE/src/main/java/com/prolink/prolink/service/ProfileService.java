@@ -1,42 +1,42 @@
 package com.prolink.prolink.service;
-
+import com.prolink.prolink.domain.Profile;
 import com.prolink.prolink.dto.CreateProfileRequest;
-import com.prolink.prolink.entity.ProfileEntity;
-import com.prolink.prolink.entity.UserEntity;
-import com.prolink.prolink.repository.ProfileRepo;
-import com.prolink.prolink.repository.UserJpaRepo;
+import com.prolink.prolink.repository.ProfileRepository;
+import com.prolink.prolink.repository.UserRepository;
+import com.prolink.prolink.domain.User;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProfileService {
 
-    private final ProfileRepo profileRepository;
-    private final UserJpaRepo userJpaRepository;
+    private final ProfileRepository profileRepository;
+    private final UserRepository userRepository;
 
-    public ProfileService(ProfileRepo profileRepository, UserJpaRepo userJpaRepository) {
-        this.profileRepository = profileRepository;
-        this.userJpaRepository = userJpaRepository;
+    public ProfileService(ProfileRepository profileRepository,UserRepository userRepository) {
+        this.profileRepository=profileRepository;
+        this.userRepository=userRepository;
     }
-    public ProfileEntity createProfile(CreateProfileRequest request) {
-        UserEntity userEntity = userJpaRepository.findById(request.getUserId())
+
+    public Profile createProfile(CreateProfileRequest request) {
+        User user = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         if (profileRepository.findByUserId(request.getUserId()).isPresent()) {
-            throw new RuntimeException("ProfileEntity already exists for this user");
+            throw new RuntimeException("Profile already exists for this user");
         }
 
-        ProfileEntity profileEntity = new ProfileEntity(
+        Profile profile = new Profile(
                 request.getName(),
                 request.getLocation(),
                 request.getPersonalDetails(),
-                userEntity
+                user.getId()
         );
 
-        return profileRepository.save(profileEntity);
+        return profileRepository.save(profile);
     }
 
-    public ProfileEntity getProfileByUserId(Long userId) {
+    public Profile getProfileByUserId(Long userId) {
         return profileRepository.findByUserId(userId)
-                .orElseThrow(() -> new RuntimeException("ProfileEntity not found"));
+                .orElseThrow(() -> new RuntimeException("Profile not found"));
     }
 }

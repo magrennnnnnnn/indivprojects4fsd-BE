@@ -4,21 +4,21 @@ import com.prolink.prolink.dto.AddCourseRequest;
 import com.prolink.prolink.entity.Courses;
 import com.prolink.prolink.entity.ProfileEntity;
 import com.prolink.prolink.repository.CourseRepo;
-import com.prolink.prolink.repository.ProfileRepo;
+import com.prolink.prolink.repository.ProfileJpaRepo;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CourseService {
     private final CourseRepo courseRepository;
-    private final ProfileRepo profileRepository;
+    private final ProfileJpaRepo profileJpaRepository;
 
-    public CourseService(CourseRepo courseRepository, ProfileRepo profileRepository){
+    public CourseService(CourseRepo courseRepository, ProfileJpaRepo profileJpaRepository){
         this.courseRepository=courseRepository;
-        this.profileRepository=profileRepository;
+        this.profileJpaRepository = profileJpaRepository;
     }
 
     public Courses addCourseExperience(AddCourseRequest request) {
-        ProfileEntity profileEntity = profileRepository.findById(request.getProfileId())
+        ProfileEntity profileEntity = profileJpaRepository.findById(request.getProfileId())
                 .orElseThrow(() -> new RuntimeException("ProfileEntity not found"));
 
         Courses courses = new Courses(
