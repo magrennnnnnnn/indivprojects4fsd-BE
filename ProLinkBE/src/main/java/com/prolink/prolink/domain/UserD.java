@@ -1,7 +1,7 @@
 package com.prolink.prolink.domain;
 
 public class UserD {
-    private final Long id;
+    private  Long id;
     private String email;
     private String password;
 
