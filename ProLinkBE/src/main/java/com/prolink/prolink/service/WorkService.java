@@ -1,13 +1,8 @@
 package com.prolink.prolink.service;
 
-import com.prolink.prolink.dto.AddEducationRequest;
-import com.prolink.prolink.entity.EducationalExperience;
-import com.prolink.prolink.entity.Profile;
+import com.prolink.prolink.entity.ProfileEntity;
 import com.prolink.prolink.entity.WorkExperience;
-import com.prolink.prolink.enums.WorkLocation;
 import com.prolink.prolink.dto.AddWorkRequest;
-import com.prolink.prolink.entity.Profile;
-import com.prolink.prolink.entity.WorkExperience;
 import com.prolink.prolink.repository.ProfileRepo;
 import com.prolink.prolink.repository.WorkRepo;
 import org.springframework.stereotype.Service;
@@ -26,15 +21,15 @@ public class WorkService {
 
     public WorkExperience addWorkExperience(AddWorkRequest request) {
 
-        Profile profile = profileRepository.findById(request.getProfileId())
-                .orElseThrow(() -> new RuntimeException("Profile not found"));
+        ProfileEntity profileEntity = profileRepository.findById(request.getProfileId())
+                .orElseThrow(() -> new RuntimeException("ProfileEntity not found"));
 
         WorkExperience workExperience = new WorkExperience(
                 request.getWorkInstitutionName(),
                 request.getWorkSkills(),
                 request.getStartDateWork(),
                 request.getEndDateWork(),
-                profile,
+                profileEntity,
                 request.getWork(),
                 request.isOnGoingWork(),
                 request.getWorkLocation(),

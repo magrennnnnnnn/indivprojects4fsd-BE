@@ -1,11 +1,9 @@
 package com.prolink.prolink.entity;
 
-import com.prolink.prolink.enums.DegreeType;
 import com.prolink.prolink.enums.WorkLocation;
 import com.prolink.prolink.enums.WorkScheduleType;
 import com.prolink.prolink.enums.WorkType;
 import jakarta.persistence.*;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 
@@ -34,15 +32,15 @@ public class WorkExperience {
 
     @ManyToOne
     @JoinColumn(name = "id_profile", nullable = false)
-    private Profile profile;
+    private ProfileEntity profileEntity;
 
     public WorkExperience(){}
-    public WorkExperience(String workInstitutionName,String workSkills,LocalDate startDateWork,LocalDate endDateWork,Profile profile,WorkType work,boolean onGoingWork,WorkLocation workLocation,WorkScheduleType workScheduleType){
+    public WorkExperience(String workInstitutionName, String workSkills, LocalDate startDateWork, LocalDate endDateWork, ProfileEntity profileEntity, WorkType work, boolean onGoingWork, WorkLocation workLocation, WorkScheduleType workScheduleType){
         this.workInstitutionName=workInstitutionName;
         this.workSkills=workSkills;
         this.startDateWork=startDateWork;
         this.endDateWork=endDateWork;
-        this.profile=profile;
+        this.profileEntity = profileEntity;
         this.work=work;
         this.workLocation=workLocation;
         this.workScheduleType=workScheduleType;
@@ -59,7 +57,7 @@ public class WorkExperience {
 
     public LocalDate getEndDateWork(){return endDateWork;}
 
-    public Profile getProfile(){return profile;}
+    public ProfileEntity getProfile(){return profileEntity;}
 
     public WorkType getWork(){return work;}
 
@@ -81,7 +79,7 @@ public class WorkExperience {
 
     public void setWork(WorkType work){this.work=work;}
 
-    public void setProfile(Profile profile){this.profile=profile;}
+    public void setProfile(ProfileEntity profileEntity){this.profileEntity = profileEntity;}
 
     public void setWorkScheduleType(WorkScheduleType workScheduleType){this.workScheduleType=workScheduleType;}
 

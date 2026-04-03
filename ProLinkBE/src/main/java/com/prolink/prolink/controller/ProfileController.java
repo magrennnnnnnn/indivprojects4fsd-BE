@@ -1,7 +1,7 @@
 package com.prolink.prolink.controller;
 
 import com.prolink.prolink.dto.CreateProfileRequest;
-import com.prolink.prolink.entity.Profile;
+import com.prolink.prolink.entity.ProfileEntity;
 import com.prolink.prolink.service.ProfileService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,12 +17,12 @@ public class ProfileController {
 
 
     @PostMapping
-    public Profile createProfile(@RequestBody CreateProfileRequest request) {
+    public ProfileEntity createProfile(@RequestBody CreateProfileRequest request) {
         return profileService.createProfile(request);
     }
 
     @GetMapping("/{userId}")
-    public Profile getProfileByUserId(@PathVariable Long userId) {
+    public ProfileEntity getProfileByUserId(@PathVariable Long userId) {
         return profileService.getProfileByUserId(userId);
     }
 }

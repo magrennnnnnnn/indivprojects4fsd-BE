@@ -1,9 +1,6 @@
 package com.prolink.prolink.dto;
 
-import com.prolink.prolink.entity.Profile;
 import com.prolink.prolink.enums.DegreeType;
-import jakarta.persistence.*;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 

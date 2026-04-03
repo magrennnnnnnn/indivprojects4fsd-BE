@@ -1,9 +1,7 @@
 package com.prolink.prolink.entity;
 
 import com.prolink.prolink.enums.CoursesType;
-import com.prolink.prolink.enums.DegreeType;
 import jakarta.persistence.*;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 
@@ -25,16 +23,16 @@ public class Courses {
 
     @ManyToOne
     @JoinColumn(name = "id_profile", nullable = false)
-    private Profile profile;
+    private ProfileEntity profileEntity;
 
     public Courses(){}
-    public Courses(String courseName,LocalDate startDateCourse,LocalDate endDateCourse,String courseSkills,CoursesType course,Profile profile){
+    public Courses(String courseName, LocalDate startDateCourse, LocalDate endDateCourse, String courseSkills, CoursesType course, ProfileEntity profileEntity){
         this.courseName=courseName;
         this.startDateCourse=startDateCourse;
         this.endDateCourse=endDateCourse;
         this.courseSkills=courseSkills;
         this.course=course;
-        this.profile=profile;
+        this.profileEntity = profileEntity;
     }
 
     public Long getIdProfileCourse(){return idProfileCourse;}
@@ -49,7 +47,7 @@ public class Courses {
 
     public CoursesType getCourse(){return course;}
 
-    public Profile getProfile(){return profile;}
+    public ProfileEntity getProfile(){return profileEntity;}
 
     public void setIdProfileCourse(Long idProfileCourse){this.idProfileCourse=idProfileCourse;}
 
@@ -63,5 +61,5 @@ public class Courses {
 
     public void setCourse(CoursesType course){this.course=course;}
 
-    public void setProfile(Profile profile){this.profile=profile;}
+    public void setProfile(ProfileEntity profileEntity){this.profileEntity = profileEntity;}
 }

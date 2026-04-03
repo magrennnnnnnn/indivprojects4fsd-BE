@@ -25,15 +25,15 @@ public class EducationalExperience {
 
     @ManyToOne
     @JoinColumn(name = "id_profile", nullable = false)
-    private Profile profile;
+    private ProfileEntity profileEntity;
 
     public EducationalExperience(){}
-    public EducationalExperience(String institutionName,LocalDate startDateSchool,LocalDate endDateSchool,String educationalSkills,Profile profile,DegreeType degree,boolean onGoingSchool){
+    public EducationalExperience(String institutionName, LocalDate startDateSchool, LocalDate endDateSchool, String educationalSkills, ProfileEntity profileEntity, DegreeType degree, boolean onGoingSchool){
      this.institutionName=institutionName;
      this.startDateSchool=startDateSchool;
      this.endDateSchool=endDateSchool;
      this.educationalSkills=educationalSkills;
-     this.profile=profile;
+     this.profileEntity = profileEntity;
      this.degree=degree;
      this.onGoingSchool=onGoingSchool;
     }
@@ -50,7 +50,7 @@ public class EducationalExperience {
 
     public DegreeType getDegree(){return degree;}
 
-    public Profile getProfile(){return profile;}
+    public ProfileEntity getProfile(){return profileEntity;}
 
     public boolean isOnGoingSchool(){return onGoingSchool;}
 
@@ -67,7 +67,7 @@ public class EducationalExperience {
 
     public void setDegree(DegreeType degree){this.degree=degree;}
 
-    public void setProfile(Profile profile){this.profile=profile;}
+    public void setProfile(ProfileEntity profileEntity){this.profileEntity = profileEntity;}
 
     public void setOnGoingSchool(boolean onGoingSchool){this.onGoingSchool=onGoingSchool;}
 }

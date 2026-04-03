@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "profiles")
 
-public class Profile {
+public class ProfileEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProfile;
@@ -19,9 +19,9 @@ public class Profile {
     private UserEntity userEntity;
 
 
-    public Profile() {
+    public ProfileEntity() {
     }
-    public Profile(String name, String location, String personalDetails, UserEntity userEntity) {
+    public ProfileEntity(String name, String location, String personalDetails, UserEntity userEntity) {
         this.name = name;
         this.location = location;
         this.personalDetails = personalDetails;

@@ -1,10 +1,8 @@
 package com.prolink.prolink.dto;
 
-import com.prolink.prolink.entity.Profile;
 import com.prolink.prolink.enums.WorkLocation;
 import com.prolink.prolink.enums.WorkScheduleType;
 import com.prolink.prolink.enums.WorkType;
-import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
