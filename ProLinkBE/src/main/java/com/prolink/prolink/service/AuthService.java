@@ -1,7 +1,7 @@
 package com.prolink.prolink.service;
 
 import com.prolink.prolink.exceptionhandler.EmailAlreadyExistsException;
-import com.prolink.prolink.domain.UserD;
+import com.prolink.prolink.domain.User;
 import com.prolink.prolink.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,13 +12,13 @@ public class AuthService{
      this.userRepository = userRepository;
     }
 
-    public UserD register(String email, String password) {
+    public User register(String email, String password) {
 
         if (userRepository.findByEmail(email).isPresent()) {
             throw new EmailAlreadyExistsException("Email already exists");
         }
 
-        UserD user = new UserD(email, password);
+        User user = new User(email, password);
         return userRepository.save(user);
     }
 

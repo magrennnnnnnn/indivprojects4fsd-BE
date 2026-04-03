@@ -2,7 +2,7 @@ package com.prolink.prolink.service;
 
 import com.prolink.prolink.dto.CreateProfileRequest;
 import com.prolink.prolink.entity.Profile;
-import com.prolink.prolink.entity.User;
+import com.prolink.prolink.entity.UserEntity;
 import com.prolink.prolink.repository.ProfileRepo;
 import com.prolink.prolink.repository.UserJpaRepo;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ public class ProfileService {
         this.userJpaRepository = userJpaRepository;
     }
     public Profile createProfile(CreateProfileRequest request) {
-        User user = userJpaRepository.findById(request.getUserId())
+        UserEntity userEntity = userJpaRepository.findById(request.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         if (profileRepository.findByUserId(request.getUserId()).isPresent()) {
@@ -29,7 +29,7 @@ public class ProfileService {
                 request.getName(),
                 request.getLocation(),
                 request.getPersonalDetails(),
-                user
+                userEntity
         );
 
         return profileRepository.save(profile);

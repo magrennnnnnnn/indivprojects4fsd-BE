@@ -1,6 +1,5 @@
 package com.prolink.prolink.entity;
 
-import com.prolink.prolink.entity.EducationalExperience;
 import jakarta.persistence.*;
 
 @Entity
@@ -17,16 +16,16 @@ public class Profile {
     private String personalDetails;
     @OneToOne
     @JoinColumn(name = "userid", nullable = false, unique = true)
-    private User user;
+    private UserEntity userEntity;
 
 
     public Profile() {
     }
-    public Profile(String name, String location, String personalDetails, User user) {
+    public Profile(String name, String location, String personalDetails, UserEntity userEntity) {
         this.name = name;
         this.location = location;
         this.personalDetails = personalDetails;
-        this.user = user;
+        this.userEntity = userEntity;
     }
     public Long getId(){return idProfile;}
 
@@ -36,7 +35,7 @@ public class Profile {
 
     public String getPersonalDetails(){return personalDetails;}
 
-    public User getUser(){return user;}
+    public UserEntity getUser(){return userEntity;}
 
     public void setId(Long idProfile) {this.idProfile = idProfile;}
 
@@ -46,6 +45,6 @@ public class Profile {
 
     public void setPersonalDetails(String personalDetails){this.personalDetails = personalDetails;}
 
-    public void setUser(User user){this.user = user;}
+    public void setUser(UserEntity userEntity){this.userEntity = userEntity;}
 
 }
