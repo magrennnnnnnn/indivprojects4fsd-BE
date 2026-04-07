@@ -22,4 +22,12 @@ public class AuthController {
     public User register(@RequestBody RegisterRequest request) {
         return authService.register(request.getEmail(), request.getPassword());
     }
+
+    @PostMapping("/login")
+    @ResponseStatus(HttpStatus.CREATED)
+    public User login(@RequestBody LogInRequest request){
+        return ResponseEntity.ok(
+                authService.login(request.getEmail(),request.getPassword())
+        );
+    }
 }
