@@ -2,15 +2,15 @@ package com.prolink.prolink.entity;
 
 import jakarta.persistence.Column;
 
-public class Posts {
+public class PostEntity {
     private String postTitle;
 
     @Column(length = 200000000)
     private String postText;
 
-    public Posts(){}
+    public PostEntity(){}
 
-    public Posts(String postTitle,String postText){
+    public PostEntity(String postTitle,String postText){
         this.postTitle=postTitle;
         this.postText=postText;
     }
