@@ -25,13 +25,13 @@ public class AuthService{
 
     public User login(String email,String password){
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new EmailAlreadyExistsException("Invalid email or password"));
+                .orElseThrow(() -> new PasswordIsIncorrectException("Invalid email or password"));
 
         if(!user.getPassword().equals(password)){
             throw new PasswordIsIncorrectException("Invalid email or password");
         }
 
-        return "Login successful";
+        return user;
     }
 
 }
