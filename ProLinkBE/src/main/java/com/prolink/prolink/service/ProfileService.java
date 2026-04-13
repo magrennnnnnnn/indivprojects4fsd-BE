@@ -4,6 +4,7 @@ import com.prolink.prolink.dto.CreateProfileRequest;
 import com.prolink.prolink.repository.ProfileRepository;
 import com.prolink.prolink.repository.UserRepository;
 import com.prolink.prolink.domain.User;
+import com.prolink.prolink.dto.UpdateProfileRequest;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -38,5 +39,16 @@ public class ProfileService {
     public Profile getProfileByUserId(Long userId) {
         return profileRepository.findByUserId(userId)
                 .orElseThrow(() -> new RuntimeException("Profile not found"));
+    }
+
+    public Profile updateProfile(Long profileId, UpdateProfileRequest request) {
+        Profile existingProfile = profileRepository.findByIdProfile(profileId)
+                .orElseThrow(() -> new RuntimeException("Profile not found"));
+
+        existingProfile.setName(request.getName());
+        existingProfile.setLocation(request.getLocation());
+        existingProfile.setPersonalDetails(request.getPersonalDetails());
+
+        return profileRepository.save(existingProfile);
     }
 }
