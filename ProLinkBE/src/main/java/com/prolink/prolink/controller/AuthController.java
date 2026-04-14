@@ -6,6 +6,7 @@ import com.prolink.prolink.dto.UserResponse;
 import org.springframework.http.HttpStatus;
 import com.prolink.prolink.service.AuthService;
 import com.prolink.prolink.dto.LoginRequest;
+import com.prolink.prolink.config.SessionService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

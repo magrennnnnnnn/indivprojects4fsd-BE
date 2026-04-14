@@ -21,6 +21,10 @@ public class SessionService {
         return value instanceof String ? (String) value : null;
     }
 
+    public boolean isLoggedIn(HttpSession session) {
+        return getUserId(session) != null;
+    }
+
     public void clearSession(HttpSession session) {
         session.invalidate();
     }
