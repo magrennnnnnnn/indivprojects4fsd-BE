@@ -21,8 +21,8 @@ public class ProfileService {
     }
 
     public Profile createProfile(Long userId,CreateProfileRequest request) {
-        User user = userRepository.findById(request.getUserId())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
         if (profileRepository.findByUserId(userId).isPresent()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Profile already exists for this user");
