@@ -5,7 +5,9 @@ import com.prolink.prolink.repository.ProfileRepository;
 import com.prolink.prolink.repository.UserRepository;
 import com.prolink.prolink.domain.User;
 import com.prolink.prolink.dto.UpdateProfileRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class ProfileService {
@@ -18,12 +20,12 @@ public class ProfileService {
         this.userRepository=userRepository;
     }
 
-    public Profile createProfile(CreateProfileRequest request) {
+    public Profile createProfile(Long userId,CreateProfileRequest request) {
         User user = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        if (profileRepository.findByUserId(request.getUserId()).isPresent()) {
-            throw new RuntimeException("Profile already exists for this user");
+        if (profileRepository.findByUserId(userId).isPresent()) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Profile already exists for this user");
         }
 
         Profile profile = new Profile(
@@ -41,9 +43,25 @@ public class ProfileService {
                 .orElseThrow(() -> new RuntimeException("Profile not found"));
     }
 
+    public Profile getProfileById(Long profileId) {
+        return profileRepository.findByIdProfile(profileId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile not found"));
+    }
+
     public Profile updateProfile(Long profileId, UpdateProfileRequest request) {
         Profile existingProfile = profileRepository.findByIdProfile(profileId)
                 .orElseThrow(() -> new RuntimeException("Profile not found"));
+
+        existingProfile.setName(request.getName());
+        existingProfile.setLocation(request.getLocation());
+        existingProfile.setPersonalDetails(request.getPersonalDetails());
+
+        return profileRepository.save(existingProfile);
+    }
+
+    public Profile updateProfileByUserId(Long userId, UpdateProfileRequest request) {
+        Profile existingProfile = profileRepository.findByUserId(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile not found"));
 
         existingProfile.setName(request.getName());
         existingProfile.setLocation(request.getLocation());

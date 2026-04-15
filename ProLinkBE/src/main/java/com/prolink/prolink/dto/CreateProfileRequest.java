@@ -1,21 +1,17 @@
 package com.prolink.prolink.dto;
 
 public class CreateProfileRequest {
-    private Long userId;
     private String name;
     private String location;
     private String personalDetails;
-    public CreateProfileRequest() {}
 
-    public Long getUserId() {return userId;}
+    public CreateProfileRequest() {}
 
     public String getName() {return name;}
 
     public String getLocation() {return location;}
 
     public String getPersonalDetails() {return personalDetails;}
-
-    public void setUserId(Long userId) {this.userId = userId;}
 
     public void setName(String name) {this.name = name;}
 

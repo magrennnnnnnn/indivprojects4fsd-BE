@@ -1,7 +1,9 @@
 package com.prolink.prolink.config;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.stereotype.Service;
 import org.springframework.stereotype.Component;
 
+@Service
 public class SessionService {
     private static final String USER_ID = "userId";
     private static final String USER_EMAIL = "userEmail";
