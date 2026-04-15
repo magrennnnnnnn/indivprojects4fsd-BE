@@ -2,6 +2,7 @@ package com.prolink.prolink.repository;
 
 import com.prolink.prolink.domain.Profile;
 import com.prolink.prolink.entity.ProfileEntity;
+import com.prolink.prolink.entity.UserEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -50,6 +51,10 @@ public class ProfileRepositoryImpl implements ProfileRepository {
         profileEntity.setName(profile.getName());
         profileEntity.setLocation(profile.getLocation());
         profileEntity.setPersonalDetails(profile.getPersonalDetails());
+
+        UserEntity userEntity = new UserEntity();
+        userEntity.setId(profile.getUserId());
+        profileEntity.setUser(userEntity);
         return profileEntity;
     }
 }

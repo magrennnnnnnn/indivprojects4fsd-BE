@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+
 @Service
 public class ProfileService {
 
@@ -40,7 +41,7 @@ public class ProfileService {
 
     public Profile getProfileByUserId(Long userId) {
         return profileRepository.findByUserId(userId)
-                .orElseThrow(() -> new RuntimeException("Profile not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile not found"));
     }
 
     public Profile getProfileById(Long profileId) {
@@ -50,7 +51,7 @@ public class ProfileService {
 
     public Profile updateProfile(Long profileId, UpdateProfileRequest request) {
         Profile existingProfile = profileRepository.findByIdProfile(profileId)
-                .orElseThrow(() -> new RuntimeException("Profile not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Profile not found"));
 
         existingProfile.setName(request.getName());
         existingProfile.setLocation(request.getLocation());
