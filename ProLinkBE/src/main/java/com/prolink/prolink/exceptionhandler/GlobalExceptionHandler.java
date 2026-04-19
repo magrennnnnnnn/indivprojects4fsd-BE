@@ -13,6 +13,16 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(PasswordIsIncorrectException.class)
     public ResponseEntity<String> handlePasswordIsIncorrect(PasswordIsIncorrectException ex){
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(InvalidEmailException.class)
+    public ResponseEntity<String> handleInvalidEmail(InvalidEmailException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(InvalidPasswordException.class)
+    public ResponseEntity<String> handleInvalidPassword(InvalidPasswordException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 }
