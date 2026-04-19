@@ -36,6 +36,8 @@ public class ProfileService {
                 user.getId()
         );
 
+        profile.validateProfileForCreate();
+
         return profileRepository.save(profile);
     }
 
@@ -57,6 +59,8 @@ public class ProfileService {
         existingProfile.setLocation(request.getLocation());
         existingProfile.setPersonalDetails(request.getPersonalDetails());
 
+        existingProfile.validateProfileForUpdate();
+
         return profileRepository.save(existingProfile);
     }
 
@@ -67,6 +71,8 @@ public class ProfileService {
         existingProfile.setName(request.getName());
         existingProfile.setLocation(request.getLocation());
         existingProfile.setPersonalDetails(request.getPersonalDetails());
+
+        existingProfile.validateProfileForUpdate();
 
         return profileRepository.save(existingProfile);
     }

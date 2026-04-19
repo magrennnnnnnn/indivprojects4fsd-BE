@@ -25,4 +25,19 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleInvalidPassword(InvalidPasswordException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
+
+    @ExceptionHandler(InvalidProfileNameException.class)
+    public ResponseEntity<String> handleInvalidProfileName(InvalidProfileNameException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(InvalidProfileLocationException.class)
+    public ResponseEntity<String> handleInvalidProfileLocation(InvalidProfileLocationException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(InvalidProfilePersonalDetailsException.class)
+    public ResponseEntity<String> handleInvalidPersonalDetails(InvalidProfilePersonalDetailsException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
 }
