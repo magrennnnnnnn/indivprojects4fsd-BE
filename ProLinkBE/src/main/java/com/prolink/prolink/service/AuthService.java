@@ -20,6 +20,7 @@ public class AuthService{
         }
 
         User user = new User(email, password);
+        user.validateForRegister();
         return userRepository.save(user);
     }
 
@@ -27,10 +28,7 @@ public class AuthService{
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new PasswordIsIncorrectException("Invalid email or password"));
 
-        if(!user.getPassword().equals(password)){
-            throw new PasswordIsIncorrectException("Invalid email or password");
-        }
-
+        user.validateLoginPassword(password);
         return user;
     }
 
