@@ -1,8 +1,9 @@
 package com.prolink.prolink.controller;
 
+import com.prolink.prolink.domain.Work;
 import com.prolink.prolink.dto.AddWorkRequest;
-import com.prolink.prolink.entity.WorkExperience;
 import com.prolink.prolink.service.WorkService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,7 +21,8 @@ public class WorkController {
     }
 
     @PostMapping
-    public WorkExperience addWork(@RequestBody AddWorkRequest request) {
-        return workService.addWorkExperience(request);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Work addWork(@RequestBody AddWorkRequest request) {
+        return workService.addWorkExperience(request.getProfileId(), request);
     }
 }
