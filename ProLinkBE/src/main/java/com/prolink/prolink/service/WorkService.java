@@ -8,6 +8,7 @@ import com.prolink.prolink.dto.AddWorkRequest;
 import com.prolink.prolink.repository.ProfileJpaRepo;
 import com.prolink.prolink.repository.ProfileRepository;
 import com.prolink.prolink.repository.WorkJpaRepo;
+import com.prolink.prolink.dto.UpdateWorkRequest;
 import com.prolink.prolink.repository.WorkRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -44,6 +45,24 @@ public class WorkService {
         work.validateForAddWork();
 
         return workRepository.save(work);
+    }
+
+    public Work updateWork(Long workId, UpdateWorkRequest request) {
+        Work existingWork = workRepository.findByIdProfileWork(workId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Work experience not found"));
+
+        existingWork.setWorkInstitutionName(request.getWorkInstitutionName());
+        existingWork.setStartDateWork(request.getStartDateWork());
+        existingWork.setEndDateWork(request.getEndDateWork());
+        existingWork.setOnGoingWork(request.isOnGoingWork());
+        existingWork.setWorkSkills(request.getWorkSkills());
+        existingWork.setWork(request.getWork());
+        existingWork.setWorkLocation(request.getWorkLocation());
+        existingWork.setWorkScheduleType(request.getWorkScheduleType());
+
+        existingWork.validateForUpdateWork();
+
+        return workRepository.save(existingWork);
     }
 }
 

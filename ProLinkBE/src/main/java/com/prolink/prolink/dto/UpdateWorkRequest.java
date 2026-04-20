@@ -7,7 +7,6 @@ import com.prolink.prolink.enums.WorkType;
 import java.time.LocalDate;
 
 public class UpdateWorkRequest {
-    private Long profileId;
     private String workInstitutionName;
     private LocalDate startDateWork;
     private LocalDate endDateWork;
@@ -19,7 +18,6 @@ public class UpdateWorkRequest {
 
     public UpdateWorkRequest(){}
 
-    public Long getProfileId(){return profileId;}
     public String getWorkInstitutionName(){return workInstitutionName;}
     public LocalDate getStartDateWork(){return startDateWork;}
     public LocalDate getEndDateWork(){return endDateWork;}
@@ -29,7 +27,6 @@ public class UpdateWorkRequest {
     public WorkLocation getWorkLocation(){return workLocation;}
     public WorkScheduleType getWorkScheduleType(){return workScheduleType;}
 
-    public void setProfileId(Long profileId){this.profileId = profileId;}
     public void setWorkInstitutionName(String workInstitutionName){this.workInstitutionName = workInstitutionName;}
     public void setStartDateWork(LocalDate startDateWork){this.startDateWork = startDateWork;}
     public void setEndDateWork(LocalDate endDateWork){this.endDateWork = endDateWork;}
