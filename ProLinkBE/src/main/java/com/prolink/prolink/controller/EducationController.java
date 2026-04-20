@@ -1,8 +1,10 @@
 package com.prolink.prolink.controller;
 
+import com.prolink.prolink.domain.Education;
 import com.prolink.prolink.dto.AddEducationRequest;
-import com.prolink.prolink.entity.EducationalExperience;
+import com.prolink.prolink.dto.UpdateEducationRequest;
 import com.prolink.prolink.service.EducationService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -15,13 +17,15 @@ public class EducationController {
         this.educationService = educationService;
     }
 
-    @GetMapping("/test")
-    public String test() {
-        return "education works";
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Education addEducation(@RequestBody AddEducationRequest request) {
+        return educationService.addEducationalExperience(request.getProfileId(), request);
     }
 
-    @PostMapping
-    public EducationalExperience addEducation(@RequestBody AddEducationRequest request) {
-        return educationService.addEducation(request);
+    @PutMapping("/{educationId}")
+    public Education updateEducation(@PathVariable Long educationId,
+                                     @RequestBody UpdateEducationRequest request) {
+        return educationService.updateEducation(educationId, request);
     }
 }
