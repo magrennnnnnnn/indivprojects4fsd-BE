@@ -4,18 +4,18 @@ import com.prolink.prolink.entity.ProfileEntity;
 import com.prolink.prolink.entity.WorkExperience;
 import com.prolink.prolink.dto.AddWorkRequest;
 import com.prolink.prolink.repository.ProfileJpaRepo;
-import com.prolink.prolink.repository.WorkRepo;
+import com.prolink.prolink.repository.WorkJpaRepo;
 import org.springframework.stereotype.Service;
 
 
 @Service
 public class WorkService {
 
-    private final WorkRepo workRepository;
+    private final WorkJpaRepo workJpaRepository;
     private final ProfileJpaRepo profileJpaRepository;
 
-    public WorkService(WorkRepo workRepository, ProfileJpaRepo profileJpaRepository) {
-        this.workRepository = workRepository;
+    public WorkService(WorkJpaRepo workJpaRepository, ProfileJpaRepo profileJpaRepository) {
+        this.workJpaRepository = workJpaRepository;
         this.profileJpaRepository = profileJpaRepository;
     }
 
@@ -36,6 +36,6 @@ public class WorkService {
                 request.getWorkScheduleType()
         );
 
-        return workRepository.save(workExperience);
+        return workJpaRepository.save(workExperience);
     }
 }

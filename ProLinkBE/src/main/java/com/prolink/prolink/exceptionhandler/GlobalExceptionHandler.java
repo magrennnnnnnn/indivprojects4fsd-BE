@@ -40,4 +40,27 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleInvalidPersonalDetails(InvalidProfilePersonalDetailsException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
+
+    @ExceptionHandler(InvalidWorkEndDateException.class)
+    public ResponseEntity<String> handleInvalidWorkEndDate(InvalidWorkEndDateException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(InvalidWorkInstitutionNameException.class)
+    public ResponseEntity<String> handleInvalidWorkInstitutionName(InvalidWorkInstitutionNameException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(InvalidWorkSkillsException.class)
+    public ResponseEntity<String> handleInvalidWorkSkills(InvalidWorkSkillsException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(InvalidWorkStartDateException.class)
+    public ResponseEntity<String> handleInvalidWorkStartDate(InvalidWorkStartDateException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+
+
 }
