@@ -1,7 +1,10 @@
 package com.prolink.prolink.controller;
+import com.prolink.prolink.domain.Course;
 import com.prolink.prolink.dto.AddCourseRequest;
+import com.prolink.prolink.dto.UpdateCourseRequest;
 import com.prolink.prolink.entity.CoursesEntity;
 import com.prolink.prolink.service.CourseService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,13 +16,16 @@ public class CourseController {
         this.courseService = courseService;
     }
 
-    @GetMapping("/test")
-    public String test() {
-        return "course works";
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Course addCourse(@RequestBody AddCourseRequest request){
+        return courseService.addCourseExperience(request.getProfileId(),request);
     }
 
-    @PostMapping
-    public CoursesEntity addCourse(@RequestBody AddCourseRequest request) {
-        return courseService.addCourseExperience(request);
+    @PutMapping("/{courseId}")
+    public Course updateCourse(@PathVariable Long courseId,
+                               @RequestBody UpdateCourseRequest request){
+        return courseService.updateCourse(courseId,request);
     }
+
 }
