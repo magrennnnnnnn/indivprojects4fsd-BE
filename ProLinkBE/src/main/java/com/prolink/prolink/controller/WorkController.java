@@ -19,6 +19,7 @@ public class WorkController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Work addWork(@RequestBody AddWorkRequest request) {
+
         return workService.addWorkExperience(request.getProfileId(), request);
     }
 
