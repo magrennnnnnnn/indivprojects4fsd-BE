@@ -1,6 +1,6 @@
 package com.prolink.prolink.controller;
 import com.prolink.prolink.dto.AddCourseRequest;
-import com.prolink.prolink.entity.Courses;
+import com.prolink.prolink.entity.CoursesEntity;
 import com.prolink.prolink.service.CourseService;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +19,7 @@ public class CourseController {
     }
 
     @PostMapping
-    public Courses addCourse(@RequestBody AddCourseRequest request) {
+    public CoursesEntity addCourse(@RequestBody AddCourseRequest request) {
         return courseService.addCourseExperience(request);
     }
 }

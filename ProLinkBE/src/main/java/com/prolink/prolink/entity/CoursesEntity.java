@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "courses")
-public class Courses {
+public class CoursesEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProfileCourse;
@@ -25,8 +25,8 @@ public class Courses {
     @JoinColumn(name = "id_profile", nullable = false)
     private ProfileEntity profileEntity;
 
-    public Courses(){}
-    public Courses(String courseName, LocalDate startDateCourse, LocalDate endDateCourse, String courseSkills, CoursesType course, ProfileEntity profileEntity){
+    public CoursesEntity(){}
+    public CoursesEntity(String courseName, LocalDate startDateCourse, LocalDate endDateCourse, String courseSkills, CoursesType course, ProfileEntity profileEntity){
         this.courseName=courseName;
         this.startDateCourse=startDateCourse;
         this.endDateCourse=endDateCourse;
