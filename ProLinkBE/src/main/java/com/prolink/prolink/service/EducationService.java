@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.prolink.prolink.dto.AddEducationRequest;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @Service
 public class EducationService {
     private final EducationRepository educationRepository;
@@ -49,4 +51,11 @@ public class EducationService {
 
         return educationRepository.save(existingEducation);
    }
+
+    public List<Education> getAllEducationByProfileId(Long profileId) {
+        profileRepository.findByIdProfile(profileId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile not found"));
+
+        return educationRepository.findByProfileId(profileId);
+    }
 }

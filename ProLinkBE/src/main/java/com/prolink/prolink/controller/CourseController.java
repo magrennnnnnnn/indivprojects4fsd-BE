@@ -7,6 +7,8 @@ import com.prolink.prolink.service.CourseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/course")
 public class CourseController {
@@ -26,6 +28,11 @@ public class CourseController {
     public Course updateCourse(@PathVariable Long courseId,
                                @RequestBody UpdateCourseRequest request){
         return courseService.updateCourse(courseId,request);
+    }
+
+    @GetMapping("/profile/{profileId}")
+    public List<Course> getCoursesByProfileId(@PathVariable Long profileId) {
+        return courseService.getAllCoursesByProfileId(profileId);
     }
 
 }

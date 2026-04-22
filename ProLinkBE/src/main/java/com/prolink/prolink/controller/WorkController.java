@@ -7,6 +7,8 @@ import com.prolink.prolink.service.WorkService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/work")
 public class WorkController {
@@ -26,5 +28,10 @@ public class WorkController {
     @PutMapping("/{workId}")
     public Work updateWork(@PathVariable Long workId, @RequestBody UpdateWorkRequest request) {
         return workService.updateWork(workId, request);
+    }
+
+    @GetMapping("/profile/{profileId}")
+    public List<Work> getWorkByProfileId(@PathVariable Long profileId) {
+        return workService.getAllWorkByProfileId(profileId);
     }
 }

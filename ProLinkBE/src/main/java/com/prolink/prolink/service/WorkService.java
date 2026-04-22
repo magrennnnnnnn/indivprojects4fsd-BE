@@ -14,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 
 @Service
 public class WorkService {
@@ -63,6 +65,13 @@ public class WorkService {
         existingWork.validateForUpdateWork();
 
         return workRepository.save(existingWork);
+    }
+
+    public List<Work> getAllWorkByProfileId(Long profileId) {
+        profileRepository.findByIdProfile(profileId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile not found"));
+
+        return workRepository.findByProfileId(profileId);
     }
 }
 
