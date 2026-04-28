@@ -1,48 +1,44 @@
-package com.prolink.prolink.entity;
+package com.prolink.prolink.domain;
 
-import jakarta.persistence.*;
+import com.prolink.prolink.entity.ProfileEntity;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "posts")
-public class PostEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Post {
     private Long idPost;
-
     private String postTitle;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-
-    @Column(length = 10000)
     private String postText;
+    private Long idProfile;
 
-    @ManyToOne
-    @JoinColumn(name = "id_profile", nullable = false)
-    private ProfileEntity profileEntity;
-
-    public PostEntity(){}
-
-    public PostEntity(String postTitle,String postText,ProfileEntity profileEntity){
+    public Post(Long idPost,String postTitle,String postText,LocalDateTime createdAt,LocalDateTime updatedAt,Long idProfile){
+        this.idPost=idPost;
         this.postTitle=postTitle;
         this.postText=postText;
-        this.profileEntity=profileEntity;
-        this.createdAt=LocalDateTime.now();
-        this.updatedAt=LocalDateTime.now();
+        this.createdAt=createdAt;
+        this.updatedAt=updatedAt;
+        this.idProfile=idProfile;
+    }
+
+    public Post(String postTitle,String postText,LocalDateTime createdAt,LocalDateTime updatedAt,Long idProfile){
+        this.postTitle=postTitle;
+        this.postText=postText;
+        this.createdAt=createdAt;
+        this.updatedAt=updatedAt;
+        this.idProfile=idProfile;
     }
 
     public Long getIdPost(){return idPost;}
     public String getPostTitle(){return postTitle;}
     public String getPostText(){return postText;}
-    public ProfileEntity getProfileEntity(){return profileEntity;}
     public LocalDateTime getCreatedAt(){return createdAt;}
     public LocalDateTime getUpdatedAt(){return updatedAt;}
+    public Long getIdProfile(){return idProfile;}
 
     public void setPostTitle(String postTitle){this.postTitle=postTitle;}
     public void setPostText(String postText){this.postText=postText;}
-    public void setProfileEntity(ProfileEntity profileEntity){this.profileEntity=profileEntity;}
     public void setCreatedAt(LocalDateTime createdAt){this.createdAt=createdAt;}
     public void setUpdatedAt(LocalDateTime updatedAt){this.updatedAt=updatedAt;}
+    public void setIdProfile(Long idProfile){this.idProfile=idProfile;}
 }
