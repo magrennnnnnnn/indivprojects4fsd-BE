@@ -3,6 +3,7 @@ package com.prolink.prolink.controller;
 import com.prolink.prolink.domain.User;
 import com.prolink.prolink.dto.RegisterRequest;
 import com.prolink.prolink.dto.UserResponse;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import com.prolink.prolink.service.AuthService;
 import com.prolink.prolink.dto.LoginRequest;
@@ -26,14 +27,14 @@ public class AuthController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public UserResponse register(@RequestBody RegisterRequest request){
+    public UserResponse register(@Valid @RequestBody RegisterRequest request){
         User user = authService.register(request.getEmail(), request.getPassword());
         return new UserResponse(user.getId(), user.getEmail());
     }
 
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
-    public UserResponse login(@RequestBody LoginRequest request,HttpSession session){
+    public UserResponse login(@Valid @RequestBody LoginRequest request,HttpSession session){
         User user = authService.login(request.getEmail(), request.getPassword());
         sessionService.setUserSession(session, user.getId(), user.getEmail());
 

@@ -4,6 +4,7 @@ import com.prolink.prolink.domain.Work;
 import com.prolink.prolink.dto.AddWorkRequest;
 import com.prolink.prolink.dto.UpdateWorkRequest;
 import com.prolink.prolink.service.WorkService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,13 +21,13 @@ public class WorkController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Work addWork(@RequestBody AddWorkRequest request) {
+    public Work addWork(@Valid @RequestBody AddWorkRequest request) {
 
         return workService.addWorkExperience(request.getProfileId(), request);
     }
 
     @PutMapping("/{workId}")
-    public Work updateWork(@PathVariable Long workId, @RequestBody UpdateWorkRequest request) {
+    public Work updateWork(@PathVariable Long workId, @Valid @RequestBody UpdateWorkRequest request) {
         return workService.updateWork(workId, request);
     }
 

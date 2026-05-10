@@ -4,6 +4,7 @@ import com.prolink.prolink.domain.Education;
 import com.prolink.prolink.dto.AddEducationRequest;
 import com.prolink.prolink.dto.UpdateEducationRequest;
 import com.prolink.prolink.service.EducationService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,13 +22,13 @@ public class EducationController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Education addEducation(@RequestBody AddEducationRequest request) {
+    public Education addEducation(@Valid @RequestBody AddEducationRequest request) {
         return educationService.addEducationalExperience(request.getProfileId(), request);
     }
 
     @PutMapping("/{educationId}")
     public Education updateEducation(@PathVariable Long educationId,
-                                     @RequestBody UpdateEducationRequest request) {
+                                     @Valid @RequestBody UpdateEducationRequest request) {
         return educationService.updateEducation(educationId, request);
     }
 

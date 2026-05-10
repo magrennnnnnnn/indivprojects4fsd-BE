@@ -5,6 +5,7 @@ import com.prolink.prolink.domain.Profile;
 import com.prolink.prolink.service.ProfileService;
 import com.prolink.prolink.config.SessionService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import  com.prolink.prolink.dto.UpdateProfileRequest;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class ProfileController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Profile createProfile(@RequestBody CreateProfileRequest request,HttpSession session) {
+    public Profile createProfile(@Valid @RequestBody CreateProfileRequest request, HttpSession session) {
         Long userId = sessionService.getUserId(session);
 
         if (userId == null) {
@@ -53,7 +54,7 @@ public class ProfileController {
     }
 
     @PutMapping("/me")
-    public Profile updateProfile(@RequestBody UpdateProfileRequest request, HttpSession session) {
+    public Profile updateProfile(@Valid @RequestBody UpdateProfileRequest request, HttpSession session) {
         Long userId = sessionService.getUserId(session);
 
         if (userId == null) {

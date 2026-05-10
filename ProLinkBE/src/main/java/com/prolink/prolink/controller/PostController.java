@@ -6,6 +6,7 @@ import com.prolink.prolink.dto.CreatePostRequest;
 import com.prolink.prolink.dto.UpdatePostRequest;
 import com.prolink.prolink.service.PostService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -26,7 +27,7 @@ public class PostController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Post createPost(@RequestBody CreatePostRequest request, HttpSession session) {
+    public Post createPost(@Valid @RequestBody CreatePostRequest request, HttpSession session) {
         Long userId = sessionService.getUserId(session);
 
         if (userId == null) {
@@ -64,7 +65,7 @@ public class PostController {
 
     @PutMapping("/{postId}")
     public Post updatePost(@PathVariable Long postId,
-                           @RequestBody UpdatePostRequest request,
+                           @Valid @RequestBody UpdatePostRequest request,
                            HttpSession session) {
         Long userId = sessionService.getUserId(session);
 
