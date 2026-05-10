@@ -3,17 +3,37 @@ package com.prolink.prolink.dto;
 import com.prolink.prolink.enums.WorkLocation;
 import com.prolink.prolink.enums.WorkScheduleType;
 import com.prolink.prolink.enums.WorkType;
+import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 
 public class UpdateWorkRequest {
+    @NotNull(message = "Profile id is required")
+    @Positive(message = "Profile id must be positive")
+    private Long profileId;
+
+    @NotBlank(message = "Work institution name is required")
+    @Size(min = 2, max = 150, message = "Work institution name must be between 2 and 150 characters")
     private String workInstitutionName;
+
+    @NotNull(message = "Work start date is required")
     private LocalDate startDateWork;
+
     private LocalDate endDateWork;
+
     private boolean onGoingWork;
+
+    @NotBlank(message = "Work skills are required")
+    @Size(min = 2, max = 2000, message = "Work skills must be between 2 and 2000 characters")
     private String workSkills;
+
+    @NotNull(message = "Work type is required")
     private WorkType work;
+
+    @NotNull(message = "Work location is required")
     private WorkLocation workLocation;
+
+    @NotNull(message = "Work schedule type is required")
     private WorkScheduleType workScheduleType;
 
     public UpdateWorkRequest(){}
@@ -35,4 +55,18 @@ public class UpdateWorkRequest {
     public void setWork(WorkType work){this.work = work;}
     public void setWorkLocation(WorkLocation workLocation){this.workLocation = workLocation;}
     public void setWorkScheduleType(WorkScheduleType workScheduleType){this.workScheduleType = workScheduleType;}
+
+    @AssertTrue(message = "End date is required when work is not ongoing")
+    public boolean isEndDateValidForWorkStatus() {
+        return onGoingWork || endDateWork != null;
+    }
+
+    @AssertTrue(message = "End date must be after start date")
+    public boolean isWorkDateRangeValid() {
+        if (startDateWork == null || endDateWork == null) {
+            return true;
+        }
+
+        return !endDateWork.isBefore(startDateWork);
+    }
 }
