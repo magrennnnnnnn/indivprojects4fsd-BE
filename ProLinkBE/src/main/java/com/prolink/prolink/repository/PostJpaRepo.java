@@ -8,5 +8,6 @@ import java.util.Optional;
 
 public interface PostJpaRepo extends JpaRepository<PostEntity, Long> {
     Optional<PostEntity> findByIdPost(Long idPost);
-    List<PostEntity> findByProfileEntity_IdProfile(Long profileId);
+    List<PostEntity> findByProfileEntity_IdProfileOrderByCreatedAtDesc(Long profileId);
+    List<PostEntity> findAllByOrderByCreatedAtDesc();
 }

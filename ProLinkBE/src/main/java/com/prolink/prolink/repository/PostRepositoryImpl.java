@@ -25,7 +25,15 @@ public class PostRepositoryImpl implements PostRepository {
 
     @Override
     public List<Post> findByProfileId(Long profileId) {
-        return postJpaRepo.findByProfileEntity_IdProfile(profileId)
+        return postJpaRepo.findByProfileEntity_IdProfileOrderByCreatedAtDesc(profileId)
+                .stream()
+                .map(this::toDomain)
+                .toList();
+    }
+
+    @Override
+    public List<Post> findAll() {
+        return postJpaRepo.findAllByOrderByCreatedAtDesc()
                 .stream()
                 .map(this::toDomain)
                 .toList();
@@ -36,6 +44,11 @@ public class PostRepositoryImpl implements PostRepository {
         PostEntity entity = toEntity(post);
         PostEntity saved = postJpaRepo.save(entity);
         return toDomain(saved);
+    }
+
+    @Override
+    public void deleteById(Long idPost) {
+        postJpaRepo.deleteById(idPost);
     }
 
     private Post toDomain(PostEntity entity) {
@@ -60,6 +73,7 @@ public class PostRepositoryImpl implements PostRepository {
 
         ProfileEntity profileEntity = new ProfileEntity();
         profileEntity.setId(post.getIdProfile());
+
         entity.setProfileEntity(profileEntity);
 
         return entity;

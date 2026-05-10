@@ -61,6 +61,16 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
+    @ExceptionHandler(InvalidPostTitleException.class)
+    public ResponseEntity<String> handleInvalidPostTitle(InvalidPostTitleException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(InvalidPostTextException.class)
+    public ResponseEntity<String> handleInvalidPostText(InvalidPostTextException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
 
 
 }
