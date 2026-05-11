@@ -35,6 +35,8 @@ public class EducationService {
                 request.getDegree(),
                 profile.getIdProfile()
         );
+
+        education.validateEducationForCreate();
         return educationRepository.save(education);
    }
 
@@ -49,6 +51,7 @@ public class EducationService {
         existingEducation.setEducationalSkills(request.getEducationalSkills());
         existingEducation.setDegree(request.getDegree());
 
+        existingEducation.validateEducationForUpdate();
         return educationRepository.save(existingEducation);
    }
 

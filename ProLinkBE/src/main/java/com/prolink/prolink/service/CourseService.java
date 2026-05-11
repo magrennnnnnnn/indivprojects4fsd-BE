@@ -35,6 +35,8 @@ public class CourseService {
                 profile.getIdProfile()
         );
 
+        course.validateCourseForCreate();
+
         return courseRepository.save(course);
     }
 
@@ -48,6 +50,7 @@ public class CourseService {
         existingCourse.setCourseSkills(request.getCourseSkills());
         existingCourse.setCourse(request.getCourse());
 
+        existingCourse.validateCourseForUpdate();
         return courseRepository.save(existingCourse);
     }
 

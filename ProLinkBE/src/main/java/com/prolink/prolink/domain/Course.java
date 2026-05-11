@@ -1,6 +1,10 @@
 package com.prolink.prolink.domain;
 
 import com.prolink.prolink.enums.CoursesType;
+import com.prolink.prolink.exceptionhandler.InvalidCourseEndDateException;
+import com.prolink.prolink.exceptionhandler.InvalidCourseNameException;
+import com.prolink.prolink.exceptionhandler.InvalidCourseSkillsException;
+import com.prolink.prolink.exceptionhandler.InvalidCourseStartDateException;
 
 import java.time.LocalDate;
 
@@ -46,5 +50,58 @@ public class Course {
     public void setCourseSkills(String courseSkills){this.courseSkills=courseSkills;}
     public void setCourse(CoursesType course){this.course=course;}
     public void setProfileId(Long profileId){this.profileId=profileId;}
+
+    public void validateCourseForCreate(){
+      validateCourseName();
+      validateCourseSkills();
+      validateCourseStartDate();
+      validateCourseEndDate();
+    }
+
+    public void validateCourseForUpdate(){
+      validateCourseName();
+      validateCourseSkills();
+      validateCourseStartDate();
+      validateCourseEndDate();
+    }
+
+    public void validateCourseName(){
+        if(courseName == null || courseName.isBlank()){
+            throw new InvalidCourseNameException("Course name can not be empty!");
+        }
+
+        if(courseName.length() <2){
+            throw new InvalidCourseNameException("Course name should be at least 2 characters long!");
+        }
+    }
+
+    public void validateCourseSkills(){
+        if(courseSkills == null || courseSkills.isBlank()){
+            throw new InvalidCourseSkillsException("Course skills can not be empty!");
+        }
+
+        if(courseSkills.length() <2){
+            throw new InvalidCourseSkillsException("Course skills should be at least 2 characters long!");
+        }
+    }
+
+    public void validateCourseStartDate(){
+        if(startDateCourse == null){
+            throw new InvalidCourseStartDateException("Start date is required!");
+        }
+    }
+
+    public void validateCourseEndDate(){
+        if(endDateCourse == null){
+            throw new InvalidCourseEndDateException("End date is required!");
+        }
+
+        if(startDateCourse != null && endDateCourse.isBefore(startDateCourse)){
+            throw new InvalidCourseEndDateException("End date can not be before start date!");
+        }
+    }
+
+
+
 
 }

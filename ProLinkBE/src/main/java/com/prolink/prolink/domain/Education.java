@@ -1,6 +1,10 @@
 package com.prolink.prolink.domain;
 
 import com.prolink.prolink.enums.DegreeType;
+import com.prolink.prolink.exceptionhandler.InvalidEducationEndDateException;
+import com.prolink.prolink.exceptionhandler.InvalidEducationInstitutionNameException;
+import com.prolink.prolink.exceptionhandler.InvalidEducationSkillsException;
+import com.prolink.prolink.exceptionhandler.InvalidEducationStartDateException;
 
 import java.time.LocalDate;
 
@@ -51,6 +55,66 @@ public class Education {
     public void setEducationalSkills(String educationalSkills){this.educationalSkills=educationalSkills;}
     public void setDegree(DegreeType degree){this.degree=degree;}
     public void setProfileId(Long profileId){this.profileId=profileId;}
+
+
+    public void validateEducationForCreate(){
+        validateInstitutionName();
+        validateEducationSkills();
+        validateEducationStartDate();
+        validateEducationEndDate();
+    }
+
+    public void validateEducationForUpdate(){
+        validateInstitutionName();
+        validateEducationSkills();
+        validateEducationStartDate();
+        validateEducationEndDate();
+    }
+
+    public void validateInstitutionName(){
+        if(institutionName == null || institutionName.isBlank()){
+            throw new InvalidEducationInstitutionNameException("Institution name can not be empty");
+        }
+
+        if(institutionName.length()<2){
+            throw new InvalidEducationInstitutionNameException("Institution name should be at least 2 characters long");
+        }
+    }
+
+    public void validateEducationSkills(){
+        if(educationalSkills == null || educationalSkills.isBlank()){
+            throw new InvalidEducationSkillsException("Educational skills can not be empty");
+        }
+
+        if(educationalSkills.length()<2){
+            throw new InvalidEducationSkillsException("Educational skills should be at least 2 characters long!");
+        }
+    }
+
+    public void validateEducationStartDate(){
+        if(startDateSchool == null){
+            throw new InvalidEducationStartDateException("Start date can not be empty!");
+        }
+    }
+
+    public void validateEducationEndDate(){
+        if(onGoingSchool){
+            if(endDateSchool != null){
+                throw new InvalidEducationEndDateException("End date must be empty for ongoing school!");
+            }
+        } else{
+            if(endDateSchool == null){
+                throw new InvalidEducationEndDateException("End date is required if education is not ongoing!");
+            }
+
+            if(startDateSchool!=null && endDateSchool.isBefore(startDateSchool)){
+                throw new InvalidEducationEndDateException("End date can not be before start date!");
+            }
+        }
+    }
+
+
+
 
     
 }

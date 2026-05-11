@@ -71,6 +71,44 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
+    @ExceptionHandler(InvalidCourseEndDateException.class)
+    public ResponseEntity<String> handleInvalidCourseEndDate(InvalidCourseEndDateException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
 
+    @ExceptionHandler(InvalidCourseNameException.class)
+    public ResponseEntity<String> handleInvalidCourseName(InvalidCourseNameException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(InvalidCourseSkillsException.class)
+    public ResponseEntity<String> handleInvalidCourseSkills(InvalidCourseSkillsException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(InvalidCourseStartDateException.class)
+    public ResponseEntity<String> handleInvalidCourseStartDate(InvalidCourseStartDateException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(InvalidEducationEndDateException.class)
+    public ResponseEntity<String> handleInvalidEducationEndDate(InvalidEducationEndDateException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(InvalidEducationInstitutionNameException.class)
+    public ResponseEntity<String> handleInvalidEducationInstitutionName(InvalidEducationInstitutionNameException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(InvalidEducationSkillsException.class)
+    public ResponseEntity<String> handleInvalidEducationSkills(InvalidEducationSkillsException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(InvalidEducationStartDateException.class)
+    public ResponseEntity<String> handleInvalidEducationStartDate(InvalidEducationStartDateException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
 
 }
