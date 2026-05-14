@@ -1,23 +1,68 @@
-name: Spring Boot CI Pipeline
+name: ProLink Backend CI
 
 on:
   push:
-    branches: [ main, master ]
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  test:
+    name: Test Backend
+    runs-on: [self-hosted, linux, docker]
+
+    defaults:
+      run:
+        working-directory: ProLinkBE
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '21'
+      - name: Check Java and Maven
+        run: |
+          java -version
+          mvn -version
 
-      - name: Build Spring Boot project
-        run: mvn clean install -DskipTests
+      - name: Make Maven wrapper executable
+        run: chmod +x mvnw
+
+      - name: Run backend tests
+        run: ./mvnw test
+        env:
+          SPRING_DATASOURCE_URL: jdbc:h2:mem:prolinktest;MODE=MSSQLServer;DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1
+          SPRING_DATASOURCE_USERNAME: sa
+          SPRING_DATASOURCE_PASSWORD: ""
+          SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.h2.Driver
+          SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
+          SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.H2Dialect
+
+  build:
+    name: Build Backend JAR
+    runs-on: [self-hosted, linux, docker]
+    needs: test
+
+    defaults:
+      run:
         working-directory: ProLinkBE
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Make Maven wrapper executable
+        run: chmod +x mvnw
+
+      - name: Build backend JAR
+        run: ./mvnw clean package -DskipTests
+
+      - name: Upload backend JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: prolink-backend-jar
+          path: ProLinkBE/target/*.jar
