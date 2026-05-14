@@ -10,7 +10,6 @@ public class Post {
     private String postText;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private String image;
     private Long idProfile;
 
     public Post(Long idPost, String postTitle, String postText,

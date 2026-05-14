@@ -1,0 +1,17 @@
+name: Test Docker Self Hosted Runner
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-runner:
+    runs-on: [self-hosted, linux, docker]
+
+    steps:
+      - name: Check runner
+        run: |
+          echo "Hello from Docker runner"
+          hostname
+          whoami
+          java -version
+          mvn -version
