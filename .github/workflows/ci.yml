@@ -66,3 +66,21 @@ jobs:
         with:
           name: prolink-backend-jar
           path: ProLinkBE/target/*.jar
+
+  docker-build:
+    name: Build Backend Docker Image
+    runs-on: [self-hosted, linux, docker]
+    needs: build
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check Docker
+        run: sudo docker version
+
+      - name: Build backend Docker image
+        run: sudo docker build -t prolink-backend:latest ./ProLinkBE
+
+      - name: Show Docker images
+        run: sudo docker images
