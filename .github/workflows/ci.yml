@@ -67,7 +67,7 @@ jobs:
           name: prolink-backend-jar
           path: ProLinkBE/target/*.jar
 
-  sonarqube:
+    sonarqube:
     name: SonarQube Analysis
     runs-on: [self-hosted, linux, docker]
     needs: build
@@ -85,17 +85,24 @@ jobs:
       - name: Make Maven wrapper executable
         run: chmod +x mvnw
 
-      - name: Run SonarQube analysis
-        run: ./mvnw -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=prolink-backend -Dsonar.projectName="ProLink Backend" -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
+      - name: Run verify and generate JaCoCo report
+        run: ./mvnw -B verify
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
           SPRING_DATASOURCE_URL: jdbc:h2:mem:prolinktest;MODE=MSSQLServer;DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1
           SPRING_DATASOURCE_USERNAME: sa
           SPRING_DATASOURCE_PASSWORD: ""
           SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.h2.Driver
           SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
           SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.H2Dialect
+
+      - name: Check JaCoCo report
+        run: ls -la target/site/jacoco
+
+      - name: Run SonarQube analysis
+        run: ./mvnw -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=prolink-backend -Dsonar.projectName="ProLink Backend" -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
   docker-build:
     name: Build Backend Docker Image
