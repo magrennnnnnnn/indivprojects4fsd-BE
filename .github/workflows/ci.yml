@@ -67,7 +67,7 @@ jobs:
           name: prolink-backend-jar
           path: ProLinkBE/target/*.jar
 
-    sonarqube:
+  sonarqube:
     name: SonarQube Analysis
     runs-on: [self-hosted, linux, docker]
     needs: build
@@ -121,5 +121,3 @@ jobs:
 
       - name: Show Docker images
         run: sudo docker images
-  
-  
