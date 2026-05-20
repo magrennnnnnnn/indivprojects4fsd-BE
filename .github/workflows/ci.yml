@@ -104,10 +104,12 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
-  docker-build:
-    name: Build Backend Docker Image
+  deploy:
+    name: Deploy Backend Container
     runs-on: [self-hosted, linux, docker]
     needs: sonarqube
+
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
 
     steps:
       - name: Checkout repository
@@ -119,5 +121,32 @@ jobs:
       - name: Build backend Docker image
         run: sudo docker build -t prolink-backend:latest ./ProLinkBE
 
-      - name: Show Docker images
-        run: sudo docker images
+      - name: Stop old backend container
+        run: sudo docker stop prolink-backend || true
+
+      - name: Remove old backend container
+        run: sudo docker rm prolink-backend || true
+
+      - name: Run backend container
+        run: |
+          sudo docker run -d \
+            --name prolink-backend \
+            -p 8080:8080 \
+            -e SPRING_DATASOURCE_URL="${{ secrets.SPRING_DATASOURCE_URL }}" \
+            -e SPRING_DATASOURCE_USERNAME="${{ secrets.SPRING_DATASOURCE_USERNAME }}" \
+            -e SPRING_DATASOURCE_PASSWORD="${{ secrets.SPRING_DATASOURCE_PASSWORD }}" \
+            -e SPRING_DATASOURCE_DRIVER_CLASS_NAME="com.microsoft.sqlserver.jdbc.SQLServerDriver" \
+            -e SPRING_JPA_HIBERNATE_DDL_AUTO="update" \
+            -e SPRING_JPA_SHOW_SQL="true" \
+            -e SPRING_JPA_DATABASE_PLATFORM="org.hibernate.dialect.SQLServerDialect" \
+            prolink-backend:latest
+
+      - name: Wait for backend startup
+        run: sleep 20
+
+      - name: Show backend logs
+        run: sudo docker logs prolink-backend --tail 100
+
+      - name: Health check backend
+        run: |
+          curl -i http://localhost:8080/profiles/me || true
