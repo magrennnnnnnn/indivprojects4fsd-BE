@@ -31,7 +31,9 @@ public class PostService {
                 request.getPostText(),
                 LocalDateTime.now(),
                 LocalDateTime.now(),
-                profile.getIdProfile()
+                profile.getIdProfile(),
+                profile.getName(),
+                profile.getLocation()
         );
 
         post.validatePostForCreate();
