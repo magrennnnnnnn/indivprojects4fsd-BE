@@ -28,6 +28,7 @@ public class ProfileEntity {
         this.userEntity = userEntity;
     }
     public Long getId(){return idProfile;}
+    public Long getIdProfile(){return idProfile;}
 
     public String getName(){return name;}
 
@@ -38,6 +39,7 @@ public class ProfileEntity {
     public UserEntity getUser(){return userEntity;}
 
     public void setId(Long idProfile) {this.idProfile = idProfile;}
+    public void setIdProfile(Long idProfile){this.idProfile = idProfile;}
 
     public void setName(String name){this.name = name;}
 

@@ -68,8 +68,15 @@ public class ConnectionRepositoryImpl implements ConnectionRepository {
     private Connection toDomain(ConnectionEntity entity) {
         return new Connection(
                 entity.getIdConnection(),
+
                 entity.getRequesterProfile().getId(),
+                entity.getRequesterProfile().getName(),
+                entity.getRequesterProfile().getLocation(),
+
                 entity.getReceiverProfile().getId(),
+                entity.getReceiverProfile().getName(),
+                entity.getReceiverProfile().getLocation(),
+
                 entity.getStatus(),
                 entity.getCreatedAt(),
                 entity.getUpdatedAt()
