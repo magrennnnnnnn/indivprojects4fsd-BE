@@ -2,6 +2,7 @@ package com.prolink.prolink.service;
 import com.prolink.prolink.domain.Post;
 import com.prolink.prolink.domain.Profile;
 import com.prolink.prolink.dto.CreatePostRequest;
+import com.prolink.prolink.dto.PostResponse;
 import com.prolink.prolink.repository.PostRepository;
 import com.prolink.prolink.repository.ProfileRepository;
 import com.prolink.prolink.dto.UpdatePostRequest;

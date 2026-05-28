@@ -64,9 +64,7 @@ public class PostController {
     }
 
     @PutMapping("/{postId}")
-    public Post updatePost(@PathVariable Long postId,
-                           @Valid @RequestBody UpdatePostRequest request,
-                           HttpSession session) {
+    public Post updatePost(@PathVariable Long postId, @Valid @RequestBody UpdatePostRequest request, HttpSession session) {
         Long userId = sessionService.getUserId(session);
 
         if (userId == null) {
@@ -87,4 +85,5 @@ public class PostController {
 
         postService.deletePost(userId, postId);
     }
+
 }
