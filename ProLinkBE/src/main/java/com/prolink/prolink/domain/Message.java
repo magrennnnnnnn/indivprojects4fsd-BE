@@ -39,7 +39,7 @@ public class Message {
     public boolean isRead() {return read;}
 
     public void setIdMessage(Long idMessage){this.idMessage=idMessage;}
-    public void setConversationId(Long conversationId){this.idMessage=idMessage;}
+    public void setConversationId(Long conversationId){this.conversationId=conversationId;}
     public void setSenderProfileId(Long senderProfileId){this.senderProfileId=senderProfileId;}
     public void setSenderProfileName(String senderProfileName){this.senderProfileName=senderProfileName;}
     public void setReceiverProfileId(Long receiverProfileId){this.receiverProfileId=receiverProfileId;}

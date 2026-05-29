@@ -24,7 +24,7 @@ public class MessageResponse {
         this.senderProfileId=senderProfileId;
         this.senderProfileName=senderProfileName;
         this.receiverProfileId=receiverProfileId;
-        this.senderProfileName=receiverProfileName;
+        this.receiverProfileName=receiverProfileName;
         this.messageText=messageText;
         this.createdAt=createdAt;
         this.read=read;
