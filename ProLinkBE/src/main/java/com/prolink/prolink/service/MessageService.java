@@ -102,14 +102,13 @@ public class MessageService {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You can only view messages with your connections");
         }
 
-        Conversation conversation = conversationRepository
+        return conversationRepository
                 .findBetweenProfiles(myProfile.getIdProfile(), otherProfile.getIdProfile())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Conversation not found"));
-
-        return messageRepository.findByConversationId(conversation.getIdConversation())
-                .stream()
-                .map(this::toResponse)
-                .toList();
+                .map(conversation -> messageRepository.findByConversationId(conversation.getIdConversation())
+                        .stream()
+                        .map(this::toResponse)
+                        .toList())
+                .orElse(List.of());
     }
 
     private Conversation findOrCreateConversation(Profile senderProfile, Profile receiverProfile) {
