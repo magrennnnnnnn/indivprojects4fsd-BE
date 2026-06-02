@@ -15,8 +15,10 @@ public class ProfileService {
 
     private final ProfileRepository profileRepository;
     private final UserRepository userRepository;
+    private final WebhookNotificationService webhookNotificationService;
 
-    public ProfileService(ProfileRepository profileRepository,UserRepository userRepository) {
+    public ProfileService(ProfileRepository profileRepository,UserRepository userRepository,WebhookNotificationService webhookNotificationService) {
+        this.webhookNotificationService=webhookNotificationService;
         this.profileRepository=profileRepository;
         this.userRepository=userRepository;
     }
@@ -76,4 +78,14 @@ public class ProfileService {
 
         return profileRepository.save(existingProfile);
     }
+
+    public void requestProfileImprovementEmail(Long userId) {
+        Profile profile = profileRepository.findByUserId(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile not found"));
+
+        webhookNotificationService.sendProfileImprovementWebhook(profile);
+    }
+
+
 }
+

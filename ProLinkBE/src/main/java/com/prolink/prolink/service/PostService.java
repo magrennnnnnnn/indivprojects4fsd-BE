@@ -18,6 +18,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final ProfileRepository profileRepository;
 
+
     public PostService(PostRepository postRepository, ProfileRepository profileRepository) {
         this.postRepository = postRepository;
         this.profileRepository = profileRepository;
@@ -38,6 +39,7 @@ public class PostService {
         );
 
         post.validatePostForCreate();
+
 
         return postRepository.save(post);
     }

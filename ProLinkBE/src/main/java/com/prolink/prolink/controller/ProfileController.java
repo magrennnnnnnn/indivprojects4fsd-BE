@@ -64,4 +64,15 @@ public class ProfileController {
         return profileService.updateProfileByUserId(userId, request);
     }
 
+    @PostMapping("/me/improvement-email")
+    public void requestProfileImprovementEmail(HttpSession session) {
+        Long userId = sessionService.getUserId(session);
+
+        if (userId == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Not logged in");
+        }
+
+        profileService.requestProfileImprovementEmail(userId);
+    }
+
 }
