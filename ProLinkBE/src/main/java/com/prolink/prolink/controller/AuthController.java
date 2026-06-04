@@ -28,7 +28,7 @@ public class AuthController {
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public UserResponse register(@Valid @RequestBody RegisterRequest request){
-        User user = authService.register(request.getEmail(), request.getPassword());
+        User user = authService.register(request.getEmail(), request.getPassword(),request.getRoles());
         return new UserResponse(user.getId(), user.getEmail());
     }
 

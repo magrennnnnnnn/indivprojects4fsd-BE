@@ -1,5 +1,6 @@
 package com.prolink.prolink.entity;
 
+import com.prolink.prolink.enums.Roles;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,10 +12,14 @@ public class UserEntity {
     private String email;
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    private Roles roles;
+
     public UserEntity(){}
-    public UserEntity(String email, String password){
+    public UserEntity(String email, String password,Roles roles){
         this.email=email;
         this.password=password;
+        this.roles=roles;
     }
 
     public Long getId(){
@@ -27,6 +32,8 @@ public class UserEntity {
         return password;
     }
 
+    public Roles getRoles(){return roles;}
+
     public void setEmail(String email){this.email=email;}
 
     public void setPassword(String password){
@@ -34,5 +41,7 @@ public class UserEntity {
     }
 
     public void setId(Long id){this.id=id;}
+
+    public void setRoles(Roles roles){this.roles=roles;}
 }
 

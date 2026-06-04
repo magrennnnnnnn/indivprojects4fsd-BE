@@ -1,5 +1,6 @@
 package com.prolink.prolink.entity;
 
+import com.prolink.prolink.enums.Roles;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,6 +12,7 @@ public class ProfileEntity {
     private Long idProfile;
     private String name;
     private String location;
+
 
     @Column(length = 2000)
     private String personalDetails;

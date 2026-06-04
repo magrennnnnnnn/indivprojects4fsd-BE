@@ -1,5 +1,6 @@
 package com.prolink.prolink.domain;
 
+import com.prolink.prolink.enums.Roles;
 import com.prolink.prolink.exceptionhandler.InvalidEmailException;
 import com.prolink.prolink.exceptionhandler.InvalidPasswordException;
 import com.prolink.prolink.exceptionhandler.PasswordIsIncorrectException;
@@ -8,17 +9,20 @@ public class User {
     private  Long id;
     private String email;
     private String password;
+    private Roles roles;
 
 
-    public User(Long id, String email, String password){
+    public User(Long id, String email, String password,Roles roles){
         this.id=id;
         this.email=email;
         this.password=password;
+        this.roles=roles;
     }
 
-    public User(String email, String password) {
+    public User(String email, String password,Roles roles) {
         this.email = email;
         this.password = password;
+        this.roles=roles;
     }
 
     public Long getId() {return id;}
@@ -27,10 +31,14 @@ public class User {
 
     public String getPassword(){return password;}
 
+    public Roles getRoles(){return roles;}
+
 
     public void setEmail(String email){this.email=email;}
 
     public void setPassword(String password){this.password=password;}
+
+    public void setRoles(Roles roles){this.roles=roles;}
 
     public void validateForRegister() {
         validateEmail();

@@ -1,5 +1,6 @@
 package com.prolink.prolink.dto;
 
+import com.prolink.prolink.enums.Roles;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -14,12 +15,18 @@ public class RegisterRequest {
     @Size(min = 6, max = 100, message = "Password must be between 6 and 100 characters")
     private String password;
 
+    private Roles roles;
+
     public String getEmail(){return email;}
 
     public String getPassword(){return password;}
 
+    public Roles getRoles(){return roles;}
+
     public void setEmail(String email){this.email=email;}
 
     public void setPassword(String password){this.password=password;}
+
+    public void setRoles(Roles roles){this.roles=roles;}
 
 }

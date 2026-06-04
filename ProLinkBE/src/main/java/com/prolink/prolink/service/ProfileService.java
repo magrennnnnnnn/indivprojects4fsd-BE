@@ -1,12 +1,14 @@
 package com.prolink.prolink.service;
 import com.prolink.prolink.domain.Profile;
 import com.prolink.prolink.dto.CreateProfileRequest;
+import com.prolink.prolink.enums.Roles;
 import com.prolink.prolink.repository.ProfileRepository;
 import com.prolink.prolink.repository.UserRepository;
 import com.prolink.prolink.domain.User;
 import com.prolink.prolink.dto.UpdateProfileRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import com.prolink.prolink.enums.Roles;
 import org.springframework.web.server.ResponseStatusException;
 
 
@@ -80,6 +82,16 @@ public class ProfileService {
     }
 
     public void requestProfileImprovementEmail(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+
+        if (user.getRoles() != Roles.PREMIUM_USER) {
+            throw new ResponseStatusException(
+                    HttpStatus.FORBIDDEN,
+                    "Only premium users can request profile improvement emails"
+            );
+        }
+
         Profile profile = profileRepository.findByUserId(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile not found"));
 
