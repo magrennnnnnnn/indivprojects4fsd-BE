@@ -9,6 +9,8 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.http.MediaType;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -25,16 +27,16 @@ public class PostController {
         this.sessionService = sessionService;
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public Post createPost(@Valid @RequestBody CreatePostRequest request, HttpSession session) {
+    public Post createPost(@RequestParam("postTitle") String postTitle, @RequestParam("postText") String postText, @RequestParam(value = "image", required = false) MultipartFile image, HttpSession session) {
         Long userId = sessionService.getUserId(session);
 
         if (userId == null) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Not logged in");
         }
 
-        return postService.createPost(userId, request);
+        return postService.createPost(userId, postTitle, postText, image);
     }
 
     @GetMapping

@@ -13,6 +13,7 @@ public class PostEntity {
     private String postTitle;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private String imageUrl;
 
     @Column(length = 10000)
     private String postText;
@@ -37,6 +38,9 @@ public class PostEntity {
     public ProfileEntity getProfileEntity() { return profileEntity; }
     public LocalDateTime getCreatedAt() { return createdAt; }
     public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public String getImageUrl() {return imageUrl;}
+
+
 
     public void setIdPost(Long idPost) { this.idPost = idPost; }
     public void setPostTitle(String postTitle) { this.postTitle = postTitle; }
@@ -44,4 +48,5 @@ public class PostEntity {
     public void setProfileEntity(ProfileEntity profileEntity) { this.profileEntity = profileEntity; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
     public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
+    public void setImageUrl(String imageUrl) {this.imageUrl = imageUrl;}
 }

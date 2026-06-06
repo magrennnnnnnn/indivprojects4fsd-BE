@@ -60,6 +60,7 @@ public class PostRepositoryImpl implements PostRepository {
                 entity.getUpdatedAt(),
                 entity.getProfileEntity().getId(),
                 entity.getProfileEntity().getName(),
+                entity.getImageUrl(),
                 entity.getProfileEntity().getLocation()
         );
     }
@@ -72,6 +73,7 @@ public class PostRepositoryImpl implements PostRepository {
         entity.setPostText(post.getPostText());
         entity.setCreatedAt(post.getCreatedAt());
         entity.setUpdatedAt(post.getUpdatedAt());
+        entity.setImageUrl(post.getImageUrl());
 
         ProfileEntity profileEntity = new ProfileEntity();
         profileEntity.setId(post.getIdProfile());

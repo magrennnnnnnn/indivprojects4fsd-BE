@@ -3,6 +3,8 @@ package com.prolink.prolink.domain;
 import java.time.LocalDateTime;
 import com.prolink.prolink.exceptionhandler.InvalidPostTitleException;
 import com.prolink.prolink.exceptionhandler.InvalidPostTextException;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 public class Post {
     private Long idPost;
@@ -13,9 +15,10 @@ public class Post {
     private Long idProfile;
     private String authorName;
     private String authorLocation;
+    private String imageUrl;
 
     public Post(Long idPost, String postTitle, String postText,
-                LocalDateTime createdAt, LocalDateTime updatedAt, Long idProfile,String authorName,String authorLocation) {
+                LocalDateTime createdAt, LocalDateTime updatedAt, Long idProfile,String authorName,String authorLocation,String imageUrl) {
         this.idPost = idPost;
         this.postTitle = postTitle;
         this.postText = postText;
@@ -24,9 +27,10 @@ public class Post {
         this.idProfile = idProfile;
         this.authorName=authorName;
         this.authorLocation=authorLocation;
+        this.imageUrl=imageUrl;
     }
 
-    public Post(String postTitle, String postText,LocalDateTime createdAt, LocalDateTime updatedAt, Long idProfile,String authorName,String authorLocation) {
+    public Post(String postTitle, String postText,LocalDateTime createdAt, LocalDateTime updatedAt, Long idProfile,String authorName,String authorLocation,String imageUrl) {
         this.postTitle = postTitle;
         this.postText = postText;
         this.createdAt = createdAt;
@@ -34,6 +38,7 @@ public class Post {
         this.idProfile = idProfile;
         this.authorName=authorName;
         this.authorLocation=authorLocation;
+        this.imageUrl=imageUrl;
     }
 
     public Long getIdPost() { return idPost; }
@@ -44,6 +49,8 @@ public class Post {
     public Long getIdProfile() { return idProfile; }
     public String getAuthorName() {return authorName; }
     public String getAuthorLocation() {return authorLocation;}
+    public String getImageUrl() {return imageUrl;}
+
 
     public void setPostTitle(String postTitle) { this.postTitle = postTitle; }
     public void setPostText(String postText) { this.postText = postText; }
@@ -51,18 +58,34 @@ public class Post {
     public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
     public void setIdProfile(Long idProfile) { this.idProfile = idProfile; }
     public void setAuthorName(String authorName) {this.authorName = authorName;}
-
+    public void setImageUrl(String imageUrl) {this.imageUrl = imageUrl;}
     public void setAuthorLocation(String authorLocation) {this.authorLocation = authorLocation;}
 
 
     public void validatePostForCreate() {
         validateTitle();
-        validateText();
+        boolean hasText = postText != null && !postText.isBlank();
+        boolean hasImage = imageUrl != null && !imageUrl.isBlank();
+
+        if (!hasText && !hasImage) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Post must contain text or an image"
+            );
+        }
+
+        if (hasText && postText.length() > 10000) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Post text cannot be longer than 10000 characters"
+            );
+        }
+        //validateText();
     }
 
     public void validatePostForUpdate() {
         validateTitle();
-        validateText();
+        //validateText();
     }
 
     private void validateTitle() {
@@ -79,7 +102,7 @@ public class Post {
         }
     }
 
-    private void validateText() {
+    /*private void validateText() {
         if (postText == null || postText.isBlank()) {
             throw new InvalidPostTextException("Post text can not be empty");
         }
@@ -91,5 +114,5 @@ public class Post {
         if (postText.length() > 10000) {
             throw new InvalidPostTextException("Post text can not be longer than 10000 characters");
         }
-    }
+    } */
 }

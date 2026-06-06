@@ -8,6 +8,7 @@ import com.prolink.prolink.repository.ProfileRepository;
 import com.prolink.prolink.dto.UpdatePostRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
@@ -17,29 +18,34 @@ import java.util.List;
 public class PostService {
     private final PostRepository postRepository;
     private final ProfileRepository profileRepository;
+    private final FileStorageService fileStorageService;
 
 
-    public PostService(PostRepository postRepository, ProfileRepository profileRepository) {
+    public PostService(PostRepository postRepository, ProfileRepository profileRepository,FileStorageService fileStorageService) {
         this.postRepository = postRepository;
         this.profileRepository = profileRepository;
+        this.fileStorageService=fileStorageService;
     }
 
-    public Post createPost(Long userId, CreatePostRequest request) {
+    public Post createPost(Long userId, String postTitle, String postText, MultipartFile image) {
         Profile profile = profileRepository.findByUserId(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile not found"));
 
+        String cleanPostText = postText == null ? "" : postText.trim();
+        String imageUrl = fileStorageService.savePostImage(image);
+
         Post post = new Post(
-                request.getPostTitle(),
-                request.getPostText(),
+                postTitle,
+                cleanPostText,
                 LocalDateTime.now(),
                 LocalDateTime.now(),
                 profile.getIdProfile(),
                 profile.getName(),
-                profile.getLocation()
+                profile.getLocation(),
+                imageUrl
         );
 
         post.validatePostForCreate();
-
 
         return postRepository.save(post);
     }
