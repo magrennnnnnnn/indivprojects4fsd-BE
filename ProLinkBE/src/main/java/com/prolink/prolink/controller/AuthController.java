@@ -11,6 +11,7 @@ import com.prolink.prolink.config.SessionService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
@@ -29,27 +30,28 @@ public class AuthController {
     @ResponseStatus(HttpStatus.CREATED)
     public UserResponse register(@Valid @RequestBody RegisterRequest request){
         User user = authService.register(request.getEmail(), request.getPassword(),request.getRoles());
-        return new UserResponse(user.getId(), user.getEmail());
+        return new UserResponse(user.getId(), user.getEmail(),user.getRoles());
     }
 
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
     public UserResponse login(@Valid @RequestBody LoginRequest request,HttpSession session){
         User user = authService.login(request.getEmail(), request.getPassword());
-        sessionService.setUserSession(session, user.getId(), user.getEmail());
+        sessionService.setUserSession(session, user.getId(), user.getEmail(), user.getRoles());
 
-        return new UserResponse(user.getId(), user.getEmail());
+        return new UserResponse(user.getId(), user.getEmail(),user.getRoles());
     }
 
     @GetMapping("/me")
-    public UserResponse me(HttpSession session) {
+    public UserResponse me(HttpSession session, SessionStatus sessionStatus) {
         if (!sessionService.isLoggedIn(session)) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Not logged in");
         }
 
         return new UserResponse(
                 sessionService.getUserId(session),
-                sessionService.getUserEmail(session)
+                sessionService.getUserEmail(session),
+                sessionService.getRoles(session)
         );
     }
 
