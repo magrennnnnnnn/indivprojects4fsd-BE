@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 public class Conversation {
     private Long idConversation;
 
+    private String test;
+
     private Long firstProfileId;
     private String firstProfileName;
 
