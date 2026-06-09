@@ -1,4 +1,4 @@
-name: ProLink Backend CI
+name: ProLink Backend CI/CD
 
 on:
   push:
@@ -12,9 +12,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
-    name: Test Backend
-    runs-on: [self-hosted, linux, docker]
+  build:
+    name: Build Backend
+    runs-on: [self-hosted, Linux, X64, docker, prolink-backend]
 
     defaults:
       run:
@@ -27,25 +27,18 @@ jobs:
       - name: Check Java and Maven
         run: |
           java -version
-          mvn -version
+          ./mvnw -v
 
       - name: Make Maven wrapper executable
         run: chmod +x mvnw
 
-      - name: Run backend tests
-        run: ./mvnw test
-        env:
-          SPRING_DATASOURCE_URL: jdbc:h2:mem:prolinktest;MODE=MSSQLServer;DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1
-          SPRING_DATASOURCE_USERNAME: sa
-          SPRING_DATASOURCE_PASSWORD: ""
-          SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.h2.Driver
-          SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
-          SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.H2Dialect
+      - name: Build backend JAR
+        run: ./mvnw -B clean package -Dmaven.test.skip=true
 
-  build:
-    name: Build Backend JAR
-    runs-on: [self-hosted, linux, docker]
-    needs: test
+  test:
+    name: Test Backend
+    runs-on: [self-hosted, Linux, X64, docker, prolink-backend]
+    needs: build
 
     defaults:
       run:
@@ -58,19 +51,20 @@ jobs:
       - name: Make Maven wrapper executable
         run: chmod +x mvnw
 
-      - name: Build backend JAR
-        run: ./mvnw clean package -DskipTests
-
-      - name: Upload backend JAR
-        uses: actions/upload-artifact@v4
-        with:
-          name: prolink-backend-jar
-          path: ProLinkBE/target/*.jar
+      - name: Run backend tests with H2
+        run: ./mvnw -B test
+        env:
+          SPRING_DATASOURCE_URL: jdbc:h2:mem:prolinktest;MODE=MSSQLServer;DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1
+          SPRING_DATASOURCE_USERNAME: sa
+          SPRING_DATASOURCE_PASSWORD: ""
+          SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.h2.Driver
+          SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
+          SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.H2Dialect
 
   sonarqube:
     name: SonarQube Analysis
-    runs-on: [self-hosted, linux, docker]
-    needs: build
+    runs-on: [self-hosted, Linux, X64, docker, prolink-backend]
+    needs: test
 
     defaults:
       run:
@@ -85,7 +79,7 @@ jobs:
       - name: Make Maven wrapper executable
         run: chmod +x mvnw
 
-      - name: Run verify and generate JaCoCo report
+      - name: Run tests and generate JaCoCo report
         run: ./mvnw -B verify
         env:
           SPRING_DATASOURCE_URL: jdbc:h2:mem:prolinktest;MODE=MSSQLServer;DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1
@@ -95,18 +89,24 @@ jobs:
           SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
           SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.H2Dialect
 
-      - name: Check JaCoCo report
-        run: ls -la target/site/jacoco
-
       - name: Run SonarQube analysis
-        run: ./mvnw -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=prolink-backend -Dsonar.projectName="ProLink Backend" -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
+        run: |
+          ./mvnw -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+            -Dsonar.projectKey=prolink-backend \
+            -Dsonar.projectName="ProLink Backend" \
+            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
+            -Dsonar.token=${{ secrets.SONAR_TOKEN }}
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SPRING_DATASOURCE_URL: jdbc:h2:mem:prolinktest;MODE=MSSQLServer;DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1
+          SPRING_DATASOURCE_USERNAME: sa
+          SPRING_DATASOURCE_PASSWORD: ""
+          SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.h2.Driver
+          SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
+          SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.H2Dialect
 
   deploy:
     name: Deploy Backend Container
-    runs-on: [self-hosted, linux, docker]
+    runs-on: [self-hosted, Linux, X64, docker, prolink-backend]
     needs: sonarqube
 
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
@@ -135,18 +135,23 @@ jobs:
             -e SPRING_DATASOURCE_URL="${{ secrets.SPRING_DATASOURCE_URL }}" \
             -e SPRING_DATASOURCE_USERNAME="${{ secrets.SPRING_DATASOURCE_USERNAME }}" \
             -e SPRING_DATASOURCE_PASSWORD="${{ secrets.SPRING_DATASOURCE_PASSWORD }}" \
-            -e SPRING_DATASOURCE_DRIVER_CLASS_NAME="com.microsoft.sqlserver.jdbc.SQLServerDriver" \
             -e SPRING_JPA_HIBERNATE_DDL_AUTO="update" \
-            -e SPRING_JPA_SHOW_SQL="true" \
-            -e SPRING_JPA_DATABASE_PLATFORM="org.hibernate.dialect.SQLServerDialect" \
             prolink-backend:latest
 
       - name: Wait for backend startup
-        run: sleep 20
+        run: sleep 25
 
       - name: Show backend logs
         run: sudo docker logs prolink-backend --tail 100
 
-      - name: Health check backend
+      - name: Check backend container is running
         run: |
-          curl -i http://localhost:8080/profiles/me || true
+          STATUS=$(sudo docker inspect -f '{{.State.Running}}' prolink-backend)
+          if [ "$STATUS" != "true" ]; then
+            echo "Backend container is not running"
+            exit 1
+          fi
+          echo "Backend container is running"
+
+      - name: Health check backend
+        run: curl -i http://localhost:8080/profiles/me || true
