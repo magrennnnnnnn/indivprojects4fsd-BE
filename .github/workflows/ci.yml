@@ -131,6 +131,7 @@ jobs:
         run: |
           sudo docker run -d \
             --name prolink-backend \
+            --restart unless-stopped \
             -p 8080:8080 \
             -e SPRING_DATASOURCE_URL="${{ secrets.SPRING_DATASOURCE_URL }}" \
             -e SPRING_DATASOURCE_USERNAME="${{ secrets.SPRING_DATASOURCE_USERNAME }}" \
