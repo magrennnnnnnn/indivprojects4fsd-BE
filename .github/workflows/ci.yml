@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 jobs:
-    build:
+  build:
     name: Build Backend
     runs-on: [self-hosted, Linux, X64, docker, prolink-backend]
 
