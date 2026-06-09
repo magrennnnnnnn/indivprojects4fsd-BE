@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+    build:
     name: Build Backend
     runs-on: [self-hosted, Linux, X64, docker, prolink-backend]
 
@@ -24,13 +24,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Make Maven wrapper executable
+        run: chmod +x mvnw
+
       - name: Check Java and Maven
         run: |
           java -version
           ./mvnw -v
-
-      - name: Make Maven wrapper executable
-        run: chmod +x mvnw
 
       - name: Build backend JAR
         run: ./mvnw -B clean package -Dmaven.test.skip=true
