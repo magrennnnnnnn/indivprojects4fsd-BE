@@ -104,8 +104,7 @@ public class ProfileServiceTest {
         request.setPersonalDetails("Software developer student");
 
         User user = mock(User.class);
-        when(user.getId()).thenReturn(userId);
-        when(user.getRoles()).thenReturn(Roles.PREMIUM_USER);
+
 
         Profile existingProfile = new Profile(
                 1L,
@@ -284,7 +283,7 @@ public class ProfileServiceTest {
         Long userId = 1L;
 
         User user = mock(User.class);
-        when(user.getId()).thenReturn(userId);
+        when(user.getRoles()).thenReturn(Roles.PREMIUM_USER);
 
         Profile profile = new Profile(
                 1L,
@@ -309,7 +308,7 @@ public class ProfileServiceTest {
         Long userId = 1L;
 
         User user = mock(User.class);
-        when(user.getId()).thenReturn(userId);
+        when(user.getRoles()).thenReturn(Roles.STANDARD_USER);
 
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
 
