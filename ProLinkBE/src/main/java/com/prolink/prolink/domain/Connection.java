@@ -9,7 +9,7 @@ public class Connection {
     private Long requesterProfileId;
     private String requesterProfileName;
     private String requesterProfileLocation;
-    
+
 
     private Long receiverProfileId;
     private String receiverProfileName;
