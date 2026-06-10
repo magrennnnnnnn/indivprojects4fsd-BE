@@ -9,6 +9,7 @@ public class Connection {
     private Long requesterProfileId;
     private String requesterProfileName;
     private String requesterProfileLocation;
+    private String chatii;
 
     private Long receiverProfileId;
     private String receiverProfileName;
