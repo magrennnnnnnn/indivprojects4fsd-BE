@@ -54,5 +54,6 @@ public class Connection {
     public void setStatus(ConnectionStatusType status){this.status=status;}
     public void setCreatedAt(LocalDateTime createdAt){this.createdAt=createdAt;}
     public void setUpdatedAt(LocalDateTime updatedAt){this.updatedAt=updatedAt;}
+    public void setIdConnection(Long idConnection){this.idConnection=idConnection;}
 
 }

@@ -321,4 +321,40 @@ public class ProfileServiceTest {
         verify(profileRepository, never()).findByUserId(userId);
         verify(webhookNotificationService, never()).sendProfileImprovementWebhook(any(Profile.class));
     }
+
+    @Test
+    void requestProfileImprovementEmail_ShouldThrowException_WhenUserDoesNotExist() {
+        Long userId = 1L;
+
+        when(userRepository.findById(userId)).thenReturn(Optional.empty());
+
+        assertThrows(
+                ResponseStatusException.class,
+                () -> profileService.requestProfileImprovementEmail(userId)
+        );
+
+        verify(userRepository).findById(userId);
+        verify(profileRepository, never()).findByUserId(anyLong());
+        verify(webhookNotificationService, never()).sendProfileImprovementWebhook(any(Profile.class));
+    }
+
+    @Test
+    void requestProfileImprovementEmail_ShouldThrowException_WhenPremiumUserHasNoProfile() {
+        Long userId = 1L;
+
+        User user = mock(User.class);
+        when(user.getRoles()).thenReturn(Roles.PREMIUM_USER);
+
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+        when(profileRepository.findByUserId(userId)).thenReturn(Optional.empty());
+
+        assertThrows(
+                ResponseStatusException.class,
+                () -> profileService.requestProfileImprovementEmail(userId)
+        );
+
+        verify(userRepository).findById(userId);
+        verify(profileRepository).findByUserId(userId);
+        verify(webhookNotificationService, never()).sendProfileImprovementWebhook(any(Profile.class));
+    }
 }
