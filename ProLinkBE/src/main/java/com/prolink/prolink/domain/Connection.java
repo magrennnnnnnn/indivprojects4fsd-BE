@@ -17,6 +17,7 @@ public class Connection {
 
     private ConnectionStatusType status;
     private LocalDateTime createdAt;
+    //
     private LocalDateTime updatedAt;
 
     public Connection(){}
