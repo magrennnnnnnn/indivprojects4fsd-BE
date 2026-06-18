@@ -16,8 +16,8 @@ public class Post {
     private String authorLocation;
     private String imageUrl;
 
-    public Post(Long idPost, String postTitle, String postText,
-                LocalDateTime createdAt, LocalDateTime updatedAt, Long idProfile,String authorName,String authorLocation,String imageUrl) {
+    @SuppressWarnings("java:S107")
+    public Post(Long idPost, String postTitle, String postText, LocalDateTime createdAt, LocalDateTime updatedAt, Long idProfile,String authorName,String authorLocation,String imageUrl) {
         this.idPost = idPost;
         this.postTitle = postTitle;
         this.postText = postText;
@@ -29,6 +29,7 @@ public class Post {
         this.imageUrl=imageUrl;
     }
 
+    @SuppressWarnings("java:S107")
     public Post(String postTitle, String postText,LocalDateTime createdAt, LocalDateTime updatedAt, Long idProfile,String authorName,String authorLocation,String imageUrl) {
         this.postTitle = postTitle;
         this.postText = postText;

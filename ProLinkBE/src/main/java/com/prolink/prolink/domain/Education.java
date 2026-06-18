@@ -18,6 +18,7 @@ public class Education {
     private DegreeType degree;
     private Long profileId;
 
+    @SuppressWarnings("java:S107")
     public Education(Long idProfileEducation,String institutionName,LocalDate startDateSchool,LocalDate endDateSchool,boolean onGoingSchool,String educationalSkills,DegreeType degree,Long profileId){
         this.idProfileEducation=idProfileEducation;
         this.institutionName=institutionName;

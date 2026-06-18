@@ -16,6 +16,7 @@ public class PostResponse {
 
     public PostResponse() {/**/}
 
+    @SuppressWarnings("java:S107")
     public PostResponse(Long idPost,String postTitle, String postText, LocalDateTime createdAt, LocalDateTime updatedAt, Long idProfile, String authorName, String authorLocation) {
         this.idPost = idPost;
         this.postTitle = postTitle;

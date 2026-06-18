@@ -18,6 +18,7 @@ public class MessageResponse {
 
     public MessageResponse(){/**/}
 
+    @SuppressWarnings("java:S107")
     public MessageResponse(Long idMessage,Long conversationId,Long senderProfileId,String senderProfileName,Long receiverProfileId,String receiverProfileName,String messageText,LocalDateTime createdAt,boolean read){
         this.idMessage=idMessage;
         this.conversationId=conversationId;

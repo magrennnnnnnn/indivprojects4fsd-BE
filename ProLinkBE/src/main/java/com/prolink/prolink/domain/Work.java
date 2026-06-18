@@ -23,6 +23,7 @@ public class Work {
     private WorkScheduleType workScheduleType;
     private Long profileId;
 
+    @SuppressWarnings("java:S107")
     public Work(Long idProfileWork,String workInstitutionName,LocalDate startDateWork,LocalDate endDateWork,boolean onGoingWork,String workSkills,WorkType work,WorkLocation workLocation,WorkScheduleType workScheduleType,Long profileId){
         this.idProfileWork=idProfileWork;
         this.workInstitutionName=workInstitutionName;
@@ -36,6 +37,7 @@ public class Work {
         this.profileId=profileId;
     }
 
+    @SuppressWarnings("java:S107")
     public Work(String workInstitutionName,LocalDate startDateWork,LocalDate endDateWork,boolean onGoingWork,String workSkills,WorkType work,WorkLocation workLocation,WorkScheduleType workScheduleType,Long profileId){
         this.workInstitutionName=workInstitutionName;
         this.startDateWork=startDateWork;
@@ -77,10 +79,7 @@ public class Work {
     }
 
     public void validateForUpdateWork(){
-        validateWorkInstitutionName();
-        validateWorkSkills();
-        validateWorkStartDate();
-        validateWorkEndDate();
+        validateForAddWork();
     }
 
     public void validateWorkInstitutionName(){

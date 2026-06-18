@@ -21,6 +21,7 @@ public class ConnectionResponse {
 
     public ConnectionResponse(){/**/}
 
+    @SuppressWarnings("java:S107")
     public ConnectionResponse(Long idConnection,Long requesterProfileId,String requesterProfileName,String requesterProfileLocation,Long receiverProfileId,String receiverProfileName,String receiverProfileLocation,ConnectionStatusType status,LocalDateTime createdAt,LocalDateTime updatedAt){
         this.idConnection=idConnection;
         this.requesterProfileId=requesterProfileId;
