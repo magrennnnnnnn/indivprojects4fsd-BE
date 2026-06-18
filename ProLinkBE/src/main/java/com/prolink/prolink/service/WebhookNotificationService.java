@@ -8,6 +8,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -16,6 +18,7 @@ import java.util.Map;
 @Service
 public class WebhookNotificationService {
     private final RestTemplate restTemplate = new RestTemplate();
+    private static final Logger LOGGER = LoggerFactory.getLogger(WebhookNotificationService.class);
 
     @Value("${app.webhooks.enabled:false}")
     private boolean webhooksEnabled;
@@ -49,7 +52,7 @@ public class WebhookNotificationService {
 
             restTemplate.postForEntity(webhookUrl, request, String.class);
         } catch (Exception ex) {
-            System.out.println("Webhook failed: " + ex.getMessage());
+            LOGGER.warn("Webhook failed: {}", ex.getMessage());
         }
     }
 }

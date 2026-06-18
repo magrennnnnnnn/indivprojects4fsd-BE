@@ -46,8 +46,8 @@ class AuthControllerTest {
 
         when(authService.register(
                 eq("test@test.com"),
-                eq("password123"),
-                eq(Roles.STANDARD_USER)
+                "password123",
+                Roles.STANDARD_USER
         )).thenReturn(user);
 
         String body = """
@@ -83,8 +83,8 @@ class AuthControllerTest {
         );
 
         when(authService.login(
-                eq("test@test.com"),
-                eq("password123")
+                "test@test.com",
+                "password123"
         )).thenReturn(user);
 
         String body = """

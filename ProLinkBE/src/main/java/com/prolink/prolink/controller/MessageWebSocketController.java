@@ -2,9 +2,11 @@ package com.prolink.prolink.controller;
 
 import com.prolink.prolink.dto.SendMessageRequest;
 import com.prolink.prolink.service.MessageService;
+import org.springframework.http.HttpStatus;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Map;
 
@@ -22,7 +24,7 @@ public class MessageWebSocketController  {
         Map<String, Object> sessionAttributes = headerAccessor.getSessionAttributes();
 
         if (sessionAttributes == null || sessionAttributes.get("userId") == null) {
-            throw new RuntimeException("Not logged in");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not logged in");
         }
 
         Long userId = Long.valueOf(sessionAttributes.get("userId").toString());

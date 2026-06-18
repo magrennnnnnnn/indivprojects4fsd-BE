@@ -18,6 +18,7 @@ public class ConnectionService {
 
     private final ConnectionRepository connectionRepository;
     private final ProfileRepository profileRepository;
+    private static final String PROFILE_NOT_FOUND = "Profile not found";
 
     public ConnectionService(ConnectionRepository connectionRepository,
                              ProfileRepository profileRepository) {
@@ -27,7 +28,7 @@ public class ConnectionService {
 
     public ConnectionResponse sendConnectionRequest(Long userId, SendConnectionRequest request) {
         Profile requesterProfile = profileRepository.findByUserId(userId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, PROFILE_NOT_FOUND));
 
         Profile receiverProfile = profileRepository.findByIdProfile(request.getReceiverProfileId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Receiver profile not found"));
@@ -68,7 +69,7 @@ public class ConnectionService {
 
     public ConnectionResponse acceptConnectionRequest(Long userId, Long connectionId) {
         Profile receiverProfile = profileRepository.findByUserId(userId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, PROFILE_NOT_FOUND));
 
         Connection connection = connectionRepository.findByIdConnection(connectionId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Connection request not found"));
@@ -91,7 +92,7 @@ public class ConnectionService {
 
     public ConnectionResponse declineConnectionRequest(Long userId, Long connectionId) {
         Profile receiverProfile = profileRepository.findByUserId(userId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, PROFILE_NOT_FOUND));
 
         Connection connection = connectionRepository.findByIdConnection(connectionId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Connection request not found"));
@@ -114,7 +115,7 @@ public class ConnectionService {
 
     public List<ConnectionResponse> getReceivedPendingRequests(Long userId) {
         Profile profile = profileRepository.findByUserId(userId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, PROFILE_NOT_FOUND));
 
         return connectionRepository
                 .findReceivedByStatus(profile.getIdProfile(), ConnectionStatusType.PENDING)
@@ -125,7 +126,7 @@ public class ConnectionService {
 
     public List<ConnectionResponse> getSentPendingRequests(Long userId) {
         Profile profile = profileRepository.findByUserId(userId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, PROFILE_NOT_FOUND));
 
         return connectionRepository
                 .findSentByStatus(profile.getIdProfile(), ConnectionStatusType.PENDING)
@@ -136,7 +137,7 @@ public class ConnectionService {
 
     public List<ConnectionResponse> getMyConnections(Long userId) {
         Profile profile = profileRepository.findByUserId(userId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, PROFILE_NOT_FOUND));
 
         return connectionRepository
                 .findAllForProfile(profile.getIdProfile())

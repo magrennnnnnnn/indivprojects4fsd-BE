@@ -62,7 +62,7 @@ public class FileStorageService {
             );
         }
 
-        long maxSize = 5 * 1024 * 1024;
+        long maxSize = 5L * 1024 * 1024;
 
         if (image.getSize() > maxSize) {
             throw new ResponseStatusException(

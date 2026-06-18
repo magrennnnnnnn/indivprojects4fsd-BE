@@ -46,7 +46,7 @@ public class Connection {
     public LocalDateTime getUpdatedAt(){return updatedAt;}
 
     public void setRequesterProfileId(Long requesterProfileId){this.requesterProfileId=requesterProfileId;}
-    public void setRequesterProfileName(String requesterProfileName){this.receiverProfileName=requesterProfileName;}
+    public void setRequesterProfileName(String requesterProfileName){this.requesterProfileName=requesterProfileName;}
     public void setRequesterProfileLocation(String requesterProfileLocation){this.requesterProfileLocation=requesterProfileLocation;}
     public void setReceiverProfileId(Long receiverProfileId){this.receiverProfileId=receiverProfileId;}
     public void setReceiverProfileName(String receiverProfileName){this.receiverProfileName=receiverProfileName;}
