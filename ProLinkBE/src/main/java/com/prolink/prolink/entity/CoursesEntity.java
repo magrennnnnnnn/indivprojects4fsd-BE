@@ -14,6 +14,7 @@ public class CoursesEntity {
     private String courseName;
     private LocalDate startDateCourse;
     private LocalDate endDateCourse;
+    //
 
     @Column(length = 2000)
     private String courseSkills;
