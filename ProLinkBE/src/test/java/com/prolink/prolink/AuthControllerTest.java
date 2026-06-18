@@ -14,7 +14,6 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -45,7 +44,7 @@ class AuthControllerTest {
         );
 
         when(authService.register(
-                eq("test@test.com"),
+                "test@test.com",
                 "password123",
                 Roles.STANDARD_USER
         )).thenReturn(user);
@@ -106,9 +105,9 @@ class AuthControllerTest {
 
         verify(sessionService).setUserSession(
                 any(HttpSession.class),
-                eq(1L),
-                eq("test@test.com"),
-                eq(Roles.STANDARD_USER)
+                1L,
+                "test@test.com",
+                Roles.STANDARD_USER
         );
     }
 }
