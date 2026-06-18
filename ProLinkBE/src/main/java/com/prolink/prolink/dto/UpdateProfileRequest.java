@@ -16,7 +16,7 @@ public class UpdateProfileRequest {
     @Size(min = 10, max = 2000, message = "Personal details must be between 10 and 2000 characters")
     private String personalDetails;
 
-    public UpdateProfileRequest(){}
+    public UpdateProfileRequest(){/**/}
 
     public String getName(){return name;}
     public String getLocation(){return location;}

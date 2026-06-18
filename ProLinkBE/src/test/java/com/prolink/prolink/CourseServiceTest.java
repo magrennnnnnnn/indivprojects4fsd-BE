@@ -43,7 +43,7 @@ class CourseServiceTest {
         request.setStartDateCourse(LocalDate.of(2024, 1, 1));
         request.setEndDateCourse(LocalDate.of(2024, 5, 1));
         request.setCourseSkills("Spring Boot and REST APIs");
-        request.setCourse(CoursesType.Software_Engineering);
+        request.setCourse(CoursesType.SOFTWARE_ENGINEERING);
 
         Profile profile = new Profile(
                 profileId,
@@ -59,7 +59,7 @@ class CourseServiceTest {
                 LocalDate.of(2024, 1, 1),
                 LocalDate.of(2024, 5, 1),
                 "Spring Boot and REST APIs",
-                CoursesType.Software_Engineering,
+                CoursesType.SOFTWARE_ENGINEERING,
                 profileId
         );
 
@@ -70,7 +70,7 @@ class CourseServiceTest {
 
         assertEquals("Java Backend Development", result.getCourseName());
         assertEquals("Spring Boot and REST APIs", result.getCourseSkills());
-        assertEquals(CoursesType.Software_Engineering, result.getCourse());
+        assertEquals(CoursesType.SOFTWARE_ENGINEERING, result.getCourse());
 
         verify(profileRepository).findByIdProfile(profileId);
         verify(courseRepository).save(any(Course.class));
@@ -86,7 +86,7 @@ class CourseServiceTest {
         request.setStartDateCourse(LocalDate.of(2024, 1, 1));
         request.setEndDateCourse(LocalDate.of(2024, 5, 1));
         request.setCourseSkills("Spring Boot and REST APIs");
-        request.setCourse(CoursesType.Software_Engineering);
+        request.setCourse(CoursesType.SOFTWARE_ENGINEERING);
 
         when(profileRepository.findByIdProfile(profileId)).thenReturn(Optional.empty());
 
@@ -109,7 +109,7 @@ class CourseServiceTest {
         request.setStartDateCourse(LocalDate.of(2024, 2, 1));
         request.setEndDateCourse(LocalDate.of(2024, 6, 1));
         request.setCourseSkills("Spring Security and JPA");
-        request.setCourse(CoursesType.Computer_Science);
+        request.setCourse(CoursesType.COMPUTER_SCIENCE);
 
         Course existingCourse = new Course(
                 courseId,
@@ -117,7 +117,7 @@ class CourseServiceTest {
                 LocalDate.of(2024, 1, 1),
                 LocalDate.of(2024, 5, 1),
                 "Spring Boot and REST APIs",
-                CoursesType.Software_Engineering,
+                CoursesType.SOFTWARE_ENGINEERING,
                 profileId
         );
 
@@ -127,7 +127,7 @@ class CourseServiceTest {
                 LocalDate.of(2024, 2, 1),
                 LocalDate.of(2024, 6, 1),
                 "Spring Security and JPA",
-                CoursesType.Computer_Science,
+                CoursesType.COMPUTER_SCIENCE,
                 profileId
         );
 
@@ -138,7 +138,7 @@ class CourseServiceTest {
 
         assertEquals("Advanced Java Backend", result.getCourseName());
         assertEquals("Spring Security and JPA", result.getCourseSkills());
-        assertEquals(CoursesType.Computer_Science, result.getCourse());
+        assertEquals(CoursesType.COMPUTER_SCIENCE, result.getCourse());
 
         verify(courseRepository).findByIdProfileCourse(courseId);
         verify(courseRepository).save(any(Course.class));

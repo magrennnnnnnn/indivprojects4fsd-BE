@@ -2,7 +2,7 @@ package com.prolink.prolink.repository;
 
 import com.prolink.prolink.entity.ConversationEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaRepository;
+
 
 import java.util.List;
 import java.util.Optional;

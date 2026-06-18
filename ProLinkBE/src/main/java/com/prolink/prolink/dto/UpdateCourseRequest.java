@@ -27,7 +27,7 @@ public class UpdateCourseRequest {
     @Positive(message = "Profile id must be positive")
     private Long profileId;
 
-    public UpdateCourseRequest(){}
+    public UpdateCourseRequest(){/**/}
 
     public String getCourseName(){return courseName;}
 

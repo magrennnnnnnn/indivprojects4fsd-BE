@@ -36,7 +36,7 @@ public class UpdateWorkRequest {
     @NotNull(message = "Work schedule type is required")
     private WorkScheduleType workScheduleType;
 
-    public UpdateWorkRequest(){}
+    public UpdateWorkRequest(){/**/}
 
     public String getWorkInstitutionName(){return workInstitutionName;}
     public LocalDate getStartDateWork(){return startDateWork;}

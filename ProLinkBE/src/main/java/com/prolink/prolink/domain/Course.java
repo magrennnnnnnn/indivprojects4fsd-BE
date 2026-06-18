@@ -59,10 +59,7 @@ public class Course {
     }
 
     public void validateCourseForUpdate(){
-      validateCourseName();
-      validateCourseSkills();
-      validateCourseStartDate();
-      validateCourseEndDate();
+        validateCourseForCreate();
     }
 
     public void validateCourseName(){

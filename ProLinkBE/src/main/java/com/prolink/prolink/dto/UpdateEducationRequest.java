@@ -29,7 +29,7 @@ public class UpdateEducationRequest {
     private Long profileId;
 
 
-    public UpdateEducationRequest(){}
+    public UpdateEducationRequest(){/**/}
 
     public String getInstitutionName(){return institutionName;}
 

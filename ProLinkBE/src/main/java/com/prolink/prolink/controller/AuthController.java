@@ -9,7 +9,6 @@ import com.prolink.prolink.service.AuthService;
 import com.prolink.prolink.dto.LoginRequest;
 import com.prolink.prolink.config.SessionService;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.server.ResponseStatusException;

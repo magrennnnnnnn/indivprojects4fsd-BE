@@ -18,17 +18,17 @@ public class SessionService {
 
     public Long getUserId(HttpSession session) {
         Object value = session.getAttribute(USER_ID);
-        return value instanceof Long ? (Long) value : null;
+        return value instanceof Long userId ? userId : null;
     }
 
     public String getUserEmail(HttpSession session) {
         Object value = session.getAttribute(USER_EMAIL);
-        return value instanceof String ? (String) value : null;
+        return value instanceof String userEmail ? userEmail : null;
     }
 
     public Roles getRoles(HttpSession session) {
         Object value = session.getAttribute(ROLES);
-        return value instanceof Roles ? (Roles) value : null;
+        return value instanceof Roles roles ? roles : null;
     }
 
     public boolean isLoggedIn(HttpSession session) {

@@ -16,7 +16,7 @@ public class MessageResponse {
     private LocalDateTime createdAt;
     private boolean read;
 
-    public MessageResponse(){}
+    public MessageResponse(){/**/}
 
     public MessageResponse(Long idMessage,Long conversationId,Long senderProfileId,String senderProfileName,Long receiverProfileId,String receiverProfileName,String messageText,LocalDateTime createdAt,boolean read){
         this.idMessage=idMessage;

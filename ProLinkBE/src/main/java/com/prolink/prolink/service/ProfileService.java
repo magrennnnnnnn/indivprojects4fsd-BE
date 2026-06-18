@@ -8,7 +8,6 @@ import com.prolink.prolink.domain.User;
 import com.prolink.prolink.dto.UpdateProfileRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import com.prolink.prolink.enums.Roles;
 import org.springframework.web.server.ResponseStatusException;
 
 

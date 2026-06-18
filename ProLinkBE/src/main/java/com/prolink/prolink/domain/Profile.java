@@ -1,5 +1,4 @@
 package com.prolink.prolink.domain;
-import com.prolink.prolink.entity.UserEntity;
 import com.prolink.prolink.exceptionhandler.InvalidProfileLocationException;
 import com.prolink.prolink.exceptionhandler.InvalidProfileNameException;
 import com.prolink.prolink.exceptionhandler.InvalidProfilePersonalDetailsException;
@@ -44,9 +43,7 @@ public class Profile {
     }
 
     public void validateProfileForUpdate(){
-        validateName();
-        validateLocation();
-        validatePersonalDetails();
+        validateProfileForCreate();
     }
 
     public void validateName(){

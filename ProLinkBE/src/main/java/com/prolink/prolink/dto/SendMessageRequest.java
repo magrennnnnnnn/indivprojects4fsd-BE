@@ -12,7 +12,7 @@ public class SendMessageRequest {
     @Size(min = 1, max = 2000, message = "Message must be between 1 and 2000 characters")
     private String messageText;
 
-    public SendMessageRequest(){}
+    public SendMessageRequest(){/**/}
 
     public Long getReceiverProfileId() {return receiverProfileId;}
 

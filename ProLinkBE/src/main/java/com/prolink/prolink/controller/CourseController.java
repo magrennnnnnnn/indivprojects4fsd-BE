@@ -2,7 +2,6 @@ package com.prolink.prolink.controller;
 import com.prolink.prolink.domain.Course;
 import com.prolink.prolink.dto.AddCourseRequest;
 import com.prolink.prolink.dto.UpdateCourseRequest;
-import com.prolink.prolink.entity.CoursesEntity;
 import com.prolink.prolink.service.CourseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

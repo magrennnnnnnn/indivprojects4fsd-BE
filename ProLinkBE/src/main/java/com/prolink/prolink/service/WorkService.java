@@ -2,12 +2,8 @@ package com.prolink.prolink.service;
 
 import com.prolink.prolink.domain.Profile;
 import com.prolink.prolink.domain.Work;
-import com.prolink.prolink.entity.ProfileEntity;
-import com.prolink.prolink.entity.WorkExperience;
 import com.prolink.prolink.dto.AddWorkRequest;
-import com.prolink.prolink.repository.ProfileJpaRepo;
 import com.prolink.prolink.repository.ProfileRepository;
-import com.prolink.prolink.repository.WorkJpaRepo;
 import com.prolink.prolink.dto.UpdateWorkRequest;
 import com.prolink.prolink.repository.WorkRepository;
 import org.springframework.http.HttpStatus;

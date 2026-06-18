@@ -2,7 +2,6 @@ package com.prolink.prolink.controller;
 
 import com.prolink.prolink.config.SessionService;
 import com.prolink.prolink.domain.Post;
-import com.prolink.prolink.dto.CreatePostRequest;
 import com.prolink.prolink.dto.UpdatePostRequest;
 import com.prolink.prolink.service.PostService;
 import jakarta.servlet.http.HttpSession;

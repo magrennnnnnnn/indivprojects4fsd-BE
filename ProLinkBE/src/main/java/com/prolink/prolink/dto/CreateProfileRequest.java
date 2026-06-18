@@ -16,7 +16,7 @@ public class CreateProfileRequest {
     @Size(min = 10, max = 2000, message = "Personal details must be between 10 and 2000 characters")
     private String personalDetails;
 
-    public CreateProfileRequest() {}
+    public CreateProfileRequest() {/**/}
 
     public String getName() {return name;}
 

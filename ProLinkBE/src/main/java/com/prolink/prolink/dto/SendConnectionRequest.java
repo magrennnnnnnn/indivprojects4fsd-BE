@@ -8,8 +8,7 @@ public class SendConnectionRequest {
     @Positive(message = "Receiver profile id must be positive")
     private Long receiverProfileId;
 
-    public SendConnectionRequest() {
-    }
+    public SendConnectionRequest() {/**/}
 
     public Long getReceiverProfileId() {
         return receiverProfileId;

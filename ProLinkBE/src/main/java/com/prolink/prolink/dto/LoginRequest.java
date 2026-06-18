@@ -14,7 +14,7 @@ public class LoginRequest {
     @Size(max = 100, message = "Password can not be longer than 100 characters")
     private String password;
 
-    public LoginRequest(){}
+    public LoginRequest(){/**/}
 
     public String getEmail(){return email;}
     public String getPassword(){return password;}

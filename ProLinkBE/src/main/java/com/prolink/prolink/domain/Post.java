@@ -2,7 +2,6 @@ package com.prolink.prolink.domain;
 
 import java.time.LocalDateTime;
 import com.prolink.prolink.exceptionhandler.InvalidPostTitleException;
-import com.prolink.prolink.exceptionhandler.InvalidPostTextException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -80,12 +79,12 @@ public class Post {
                     "Post text cannot be longer than 10000 characters"
             );
         }
-        //validateText();
+
     }
 
     public void validatePostForUpdate() {
         validateTitle();
-        //validateText();
+
     }
 
     private void validateTitle() {
@@ -102,17 +101,5 @@ public class Post {
         }
     }
 
-    /*private void validateText() {
-        if (postText == null || postText.isBlank()) {
-            throw new InvalidPostTextException("Post text can not be empty");
-        }
 
-        if (postText.length() < 5) {
-            throw new InvalidPostTextException("Post text must be at least 5 characters long");
-        }
-
-        if (postText.length() > 10000) {
-            throw new InvalidPostTextException("Post text can not be longer than 10000 characters");
-        }
-    } */
 }

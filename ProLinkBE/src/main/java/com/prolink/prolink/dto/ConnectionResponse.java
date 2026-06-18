@@ -19,7 +19,7 @@ public class ConnectionResponse {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public ConnectionResponse(){}
+    public ConnectionResponse(){/**/}
 
     public ConnectionResponse(Long idConnection,Long requesterProfileId,String requesterProfileName,String requesterProfileLocation,Long receiverProfileId,String receiverProfileName,String receiverProfileLocation,ConnectionStatusType status,LocalDateTime createdAt,LocalDateTime updatedAt){
         this.idConnection=idConnection;

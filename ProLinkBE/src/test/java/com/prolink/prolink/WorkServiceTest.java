@@ -46,9 +46,9 @@ class WorkServiceTest {
         request.setEndDateWork(LocalDate.of(2024, 12, 1));
         request.setOnGoingWork(false);
         request.setWorkSkills("Backend development");
-        request.setWork(WorkType.Software_Development);
-        request.setWorkLocation(WorkLocation.Remote);
-        request.setWorkScheduleType(WorkScheduleType.Full_Time);
+        request.setWork(WorkType.SOFTWARE_DEVELOPMENT);
+        request.setWorkLocation(WorkLocation.REMOTE);
+        request.setWorkScheduleType(WorkScheduleType.FULL_TIME);
 
         Profile profile = new Profile(
                 profileId,
@@ -65,9 +65,9 @@ class WorkServiceTest {
                 LocalDate.of(2024, 12, 1),
                 false,
                 "Backend development",
-                WorkType.Software_Development,
-                WorkLocation.Remote,
-                WorkScheduleType.Full_Time,
+                WorkType.SOFTWARE_DEVELOPMENT,
+                WorkLocation.REMOTE,
+                WorkScheduleType.FULL_TIME,
                 profileId
         );
 
@@ -78,7 +78,7 @@ class WorkServiceTest {
 
         assertEquals("Google", result.getWorkInstitutionName());
         assertEquals("Backend development", result.getWorkSkills());
-        assertEquals(WorkType.Software_Development, result.getWork());
+        assertEquals(WorkType.SOFTWARE_DEVELOPMENT, result.getWork());
 
         verify(profileRepository).findByIdProfile(profileId);
         verify(workRepository).save(any(Work.class));
@@ -95,9 +95,9 @@ class WorkServiceTest {
         request.setEndDateWork(LocalDate.of(2024, 12, 1));
         request.setOnGoingWork(false);
         request.setWorkSkills("Backend development");
-        request.setWork(WorkType.Software_Development);
-        request.setWorkLocation(WorkLocation.Remote);
-        request.setWorkScheduleType(WorkScheduleType.Full_Time);
+        request.setWork(WorkType.SOFTWARE_DEVELOPMENT);
+        request.setWorkLocation(WorkLocation.REMOTE);
+        request.setWorkScheduleType(WorkScheduleType.FULL_TIME);
 
         when(profileRepository.findByIdProfile(profileId)).thenReturn(Optional.empty());
 
@@ -121,9 +121,9 @@ class WorkServiceTest {
         request.setEndDateWork(LocalDate.of(2025, 1, 1));
         request.setOnGoingWork(false);
         request.setWorkSkills("Cloud development");
-        request.setWork(WorkType.Cloud_Computing);
-        request.setWorkLocation(WorkLocation.Hybrid);
-        request.setWorkScheduleType(WorkScheduleType.Full_Time);
+        request.setWork(WorkType.CLOUD_COMPUTING);
+        request.setWorkLocation(WorkLocation.HYBRID);
+        request.setWorkScheduleType(WorkScheduleType.FULL_TIME);
 
         Work existingWork = new Work(
                 workId,
@@ -132,9 +132,9 @@ class WorkServiceTest {
                 LocalDate.of(2023, 12, 1),
                 false,
                 "Backend",
-                WorkType.Software_Development,
-                WorkLocation.Remote,
-                WorkScheduleType.Full_Time,
+                WorkType.SOFTWARE_DEVELOPMENT,
+                WorkLocation.REMOTE,
+                WorkScheduleType.FULL_TIME,
                 profileId
         );
 
@@ -145,9 +145,9 @@ class WorkServiceTest {
                 LocalDate.of(2025, 1, 1),
                 false,
                 "Cloud development",
-                WorkType.Cloud_Computing,
-                WorkLocation.Hybrid,
-                WorkScheduleType.Full_Time,
+                WorkType.CLOUD_COMPUTING,
+                WorkLocation.HYBRID,
+                WorkScheduleType.FULL_TIME,
                 profileId
         );
 
@@ -158,7 +158,7 @@ class WorkServiceTest {
 
         assertEquals("Microsoft", result.getWorkInstitutionName());
         assertEquals("Cloud development", result.getWorkSkills());
-        assertEquals(WorkType.Cloud_Computing, result.getWork());
+        assertEquals(WorkType.CLOUD_COMPUTING, result.getWork());
 
         verify(workRepository).findByIdProfileWork(workId);
         verify(workRepository).save(any(Work.class));

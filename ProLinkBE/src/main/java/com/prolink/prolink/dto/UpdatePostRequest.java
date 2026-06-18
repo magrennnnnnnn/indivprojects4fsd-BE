@@ -3,7 +3,7 @@ package com.prolink.prolink.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-import java.time.LocalDateTime;
+
 
 public class UpdatePostRequest {
     @NotBlank(message = "Post title is required")
@@ -14,7 +14,7 @@ public class UpdatePostRequest {
     @Size(min = 5, max = 10000, message = "Post text must be between 5 and 10000 characters")
     private String postText;
 
-    public UpdatePostRequest(){}
+    public UpdatePostRequest(){/**/}
 
     public String getPostTitle(){return postTitle;}
     public String getPostText(){return postText;}

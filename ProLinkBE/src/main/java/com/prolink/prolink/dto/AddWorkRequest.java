@@ -37,7 +37,7 @@ public class AddWorkRequest {
     @NotNull(message = "Work schedule type is required")
     private WorkScheduleType workScheduleType;
 
-    public AddWorkRequest(){}
+    public AddWorkRequest(){/**/}
 
     public Long getProfileId(){return profileId;}
 

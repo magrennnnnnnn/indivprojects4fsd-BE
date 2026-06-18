@@ -14,7 +14,7 @@ public class PostResponse {
     private String authorName;
     private String authorLocation;
 
-    public PostResponse() {}
+    public PostResponse() {/**/}
 
     public PostResponse(Long idPost,String postTitle, String postText, LocalDateTime createdAt, LocalDateTime updatedAt, Long idProfile, String authorName, String authorLocation) {
         this.idPost = idPost;

@@ -65,10 +65,7 @@ public class Education {
     }
 
     public void validateEducationForUpdate(){
-        validateInstitutionName();
-        validateEducationSkills();
-        validateEducationStartDate();
-        validateEducationEndDate();
+        validateEducationForCreate();
     }
 
     public void validateInstitutionName(){
