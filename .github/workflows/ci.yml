@@ -137,6 +137,7 @@ jobs:
             -e SPRING_DATASOURCE_USERNAME="${{ secrets.SPRING_DATASOURCE_USERNAME }}" \
             -e SPRING_DATASOURCE_PASSWORD="${{ secrets.SPRING_DATASOURCE_PASSWORD }}" \
             -e SPRING_JPA_HIBERNATE_DDL_AUTO="update" \
+            -e APP_CORS_ALLOWED_ORIGIN="${{ secrets.APP_CORS_ALLOWED_ORIGIN }}" \
             prolink-backend:latest
 
       - name: Wait for backend startup
