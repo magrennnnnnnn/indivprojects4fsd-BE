@@ -48,6 +48,11 @@ public class ProfileController {
         return profileService.getProfileByUserId(userId);
     }
 
+    @GetMapping("/{profileId}")
+    public Profile getProfileById(@PathVariable Long profileId) {
+        return profileService.getProfileById(profileId);
+    }
+
     @GetMapping("/user/{userId}")
     public Profile getProfileByUserId(@PathVariable Long userId) {
         return profileService.getProfileByUserId(userId);
@@ -74,5 +79,7 @@ public class ProfileController {
 
         profileService.requestProfileImprovementEmail(userId);
     }
+
+
 
 }
