@@ -60,8 +60,8 @@ public class PostRepositoryImpl implements PostRepository {
                 entity.getUpdatedAt(),
                 entity.getProfileEntity().getId(),
                 entity.getProfileEntity().getName(),
-                entity.getImageUrl(),
-                entity.getProfileEntity().getLocation()
+                entity.getProfileEntity().getLocation(),
+                entity.getImageUrl()
         );
     }
 
