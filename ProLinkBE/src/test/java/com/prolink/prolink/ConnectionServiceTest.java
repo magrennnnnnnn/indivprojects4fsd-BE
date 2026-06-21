@@ -167,6 +167,23 @@ class ConnectionServiceTest {
 
         when(profileRepository.findByUserId(userId)).thenReturn(Optional.of(requester));
         when(profileRepository.findByIdProfile(receiverProfileId)).thenReturn(Optional.of(receiver));
+
+        User requesterUser = new User(
+                userId,
+                "requester@test.com",
+                "password123",
+                Roles.STANDARD_USER
+        );
+
+        User receiverUser = new User(
+                2L,
+                "receiver@test.com",
+                "password123",
+                Roles.STANDARD_USER
+        );
+
+        when(userRepository.findById(userId)).thenReturn(Optional.of(requesterUser));
+        when(userRepository.findById(2L)).thenReturn(Optional.of(receiverUser));
         when(connectionRepository.findBetweenProfiles(requesterProfileId, receiverProfileId))
                 .thenReturn(Optional.of(existingConnection));
 
