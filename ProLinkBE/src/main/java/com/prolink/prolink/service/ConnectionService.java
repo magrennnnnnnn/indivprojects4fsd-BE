@@ -2,14 +2,17 @@ package com.prolink.prolink.service;
 
 import com.prolink.prolink.domain.Connection;
 import com.prolink.prolink.domain.Profile;
+import com.prolink.prolink.domain.User;
 import com.prolink.prolink.dto.ConnectionResponse;
 import com.prolink.prolink.dto.SendConnectionRequest;
 import com.prolink.prolink.enums.ConnectionStatusType;
+import com.prolink.prolink.enums.Roles;
 import com.prolink.prolink.repository.ConnectionRepository;
 import com.prolink.prolink.repository.ProfileRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import com.prolink.prolink.repository.UserRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,12 +21,13 @@ public class ConnectionService {
 
     private final ConnectionRepository connectionRepository;
     private final ProfileRepository profileRepository;
+    private final UserRepository userRepository;
     private static final String PROFILE_NOT_FOUND = "Profile not found";
 
-    public ConnectionService(ConnectionRepository connectionRepository,
-                             ProfileRepository profileRepository) {
+    public ConnectionService(ConnectionRepository connectionRepository, ProfileRepository profileRepository,UserRepository userRepository) {
         this.connectionRepository = connectionRepository;
         this.profileRepository = profileRepository;
+        this.userRepository=userRepository;
     }
 
     public ConnectionResponse sendConnectionRequest(Long userId, SendConnectionRequest request) {
@@ -34,7 +38,29 @@ public class ConnectionService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Receiver profile not found"));
 
         if (requesterProfile.getIdProfile().equals(receiverProfile.getIdProfile())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You cannot send a connection request to yourself");
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "You cannot send a connection request to yourself"
+            );
+        }
+
+        User requesterUser = userRepository.findById(requesterProfile.getUserId())
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Requester user not found"
+                ));
+
+        User receiverUser = userRepository.findById(receiverProfile.getUserId())
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Receiver user not found"
+                ));
+
+        if (requesterUser.getRoles() == Roles.COMPANY || receiverUser.getRoles() == Roles.COMPANY) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Company accounts cannot use connections. Users can follow companies instead."
+            );
         }
 
         boolean alreadyExistsOneWay = connectionRepository
@@ -52,7 +78,10 @@ public class ConnectionService {
                 .isPresent();
 
         if (alreadyExistsOneWay || alreadyExistsReverse) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Connection request already exists");
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT,
+                    "Connection request already exists"
+            );
         }
 
         Connection connection = new Connection();
