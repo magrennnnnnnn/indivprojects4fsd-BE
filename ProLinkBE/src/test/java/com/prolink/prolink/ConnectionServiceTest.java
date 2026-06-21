@@ -2,8 +2,10 @@ package com.prolink.prolink;
 
 import com.prolink.prolink.domain.Connection;
 import com.prolink.prolink.domain.Profile;
+import com.prolink.prolink.domain.User;
 import com.prolink.prolink.dto.SendConnectionRequest;
 import com.prolink.prolink.enums.ConnectionStatusType;
+import com.prolink.prolink.enums.Roles;
 import com.prolink.prolink.repository.ConnectionRepository;
 import com.prolink.prolink.repository.ProfileRepository;
 import com.prolink.prolink.service.ConnectionService;
@@ -13,6 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.server.ResponseStatusException;
+import com.prolink.prolink.repository.UserRepository;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -28,6 +31,9 @@ class ConnectionServiceTest {
 
     @Mock
     private ProfileRepository profileRepository;
+
+    @Mock
+    private UserRepository userRepository;
 
     @InjectMocks
     private ConnectionService connectionService;
@@ -67,6 +73,23 @@ class ConnectionServiceTest {
 
         when(profileRepository.findByUserId(userId)).thenReturn(Optional.of(requester));
         when(profileRepository.findByIdProfile(receiverProfileId)).thenReturn(Optional.of(receiver));
+
+        User requesterUser = new User(
+                userId,
+                "requester@test.com",
+                "password123",
+                Roles.STANDARD_USER
+        );
+
+        User receiverUser = new User(
+                2L,
+                "receiver@test.com",
+                "password123",
+                Roles.STANDARD_USER
+        );
+
+        when(userRepository.findById(userId)).thenReturn(Optional.of(requesterUser));
+        when(userRepository.findById(2L)).thenReturn(Optional.of(receiverUser));
         when(connectionRepository.findBetweenProfiles(requesterProfileId, receiverProfileId))
                 .thenReturn(Optional.empty());
         when(connectionRepository.findBetweenProfiles(receiverProfileId, requesterProfileId))
