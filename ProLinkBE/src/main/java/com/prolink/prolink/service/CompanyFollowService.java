@@ -18,6 +18,7 @@ import java.util.List;
 public class CompanyFollowService {
     private static final String PROFILE_NOT_FOUND = "Profile not found";
     private static final String COMPANY_PROFILE_NOT_FOUND = "Company profile not found";
+    private static final String COMPANY_USER_NOT_FOUND = "Company user not found";
 
     private final CompanyFollowRepository companyFollowRepository;
     private final ProfileRepository profileRepository;
@@ -51,7 +52,7 @@ public class CompanyFollowService {
         User companyUser = userRepository.findById(companyProfile.getUserId())
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
-                        "Company user not found"
+                        COMPANY_USER_NOT_FOUND
                 ));
 
         if (followerProfile.getIdProfile().equals(companyProfile.getIdProfile())) {
@@ -107,7 +108,7 @@ public class CompanyFollowService {
         User companyUser = userRepository.findById(companyProfile.getUserId())
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
-                        "Company user not found"
+                        COMPANY_USER_NOT_FOUND
                 ));
 
         if (companyUser.getRoles() != Roles.COMPANY) {
@@ -159,7 +160,7 @@ public class CompanyFollowService {
         User companyUser = userRepository.findById(companyProfile.getUserId())
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
-                        "Company user not found"
+                        COMPANY_USER_NOT_FOUND
                 ));
 
         if (companyUser.getRoles() != Roles.COMPANY) {
