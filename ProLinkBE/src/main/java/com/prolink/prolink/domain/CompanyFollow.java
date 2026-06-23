@@ -11,7 +11,6 @@ public class CompanyFollow {
     private Long companyProfileId;
     private String companyProfileName;
     private String companyProfileLocation;
-    
 
     private LocalDateTime createdAt;
 
